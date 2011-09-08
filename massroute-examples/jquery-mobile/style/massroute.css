@@ -1,0 +1,14 @@
+.ui-li-icon + h3 { margin-left: 16px; }
+.mr-disclaimer {
+    margin-right: 8px;
+    font-size: 12px;
+    text-align: right;
+}
+.mr-learn-btn:active, .mr-learn-btn:visited {
+    color: #ffffff;
+}
+
+.mr-titlefield {
+    padding-bottom: 15px;
+    margin-top: 0px;
+}

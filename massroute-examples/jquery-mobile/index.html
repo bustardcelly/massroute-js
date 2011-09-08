@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MassRoute</title>
+    <!-- Meta for when app is added to Home Screen -->
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=false;"/>
+    <!-- http://developer.apple.com/library/safari/#documentation/appleapplications/reference/SafariHTMLRef/Articles/MetaTags.html -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- Added icon for Home Screen -->
+    <link rel="apple-touch-icon" href="images/mass_route_icon_72_72.png" />
+    <link rel="apple-touch-startup-image" href="images/mass_route.png" />
+    <style type="text/css">
+        /* Could possible show splash image and set this on all divs */
+        body {
+            display: none;
+            visibility: hidden;
+        }
+    </style>
+    <noscript>
+        <style type="text/css">
+             body {
+                display: inherit;
+                visibility: visible;
+            }
+        </style>
+    </noscript>
+</head>
+<body>
+    <div id="home" data-role="page">
+        <div data-role="header" data-position="fixed"><h1>MassRoute</h1></div>
+        <div data-role="content">
+            <!-- data-filter automatically adds a search to top. -->
+            <ul id="routes" data-role="listview" data-dividertheme="b" data-filter="true"></ul>
+        </div>
+        <div data-id="disclaimer" data-role="footer" data-position="fixed">
+            <p class="mr-disclaimer"><span>MassRoute is made possible by <a href="http://www.twitter.com/MassDOTdev">@MassDot</a>.</span> <a class="mr-learn-btn" href="http://www.eot.state.ma.us/developers/realtime/">Learn more</a></p>
+        </div>
+    </div>
+    <div id="destination" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>Destinations</h1></div>
+        <div data-role="content">
+            <p id="titlefield" class="mr-titlefield"></p>
+            <ul id="destinations" data-role="listview" data-theme="c" data-dividertheme="b"></ul>
+        </div>
+        <div data-id="disclaimer" data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul class="ui-grid-a">
+                        <li><a href="#" id="inboundButton" data-icon="arrow-u" data-iconpos="top">Inbound</a></li>
+                        <li><a href="#" id="outboundButton" data-icon="arrow-d" data-iconpos="top">Outbound</a></li>
+                </ul>
+            </div>
+            <p class="mr-disclaimer"><span>MassRoute is made possible by <a href="http://www.twitter.com/MassDOTdev">@MassDot</a>.</span> <a class="mr-learn-btn" href="http://www.eot.state.ma.us/developers/realtime/">Learn more</a></p>
+        </div>
+    </div>
+    <div id="stop" data-role="page">
+        <div data-role="header" data-position="fixed"><h1>Stops</h1></div>
+        <div data-role="content">
+            <p id="titlefield" class="mr-titlefield"></p>
+            <ul id="stops" data-role="listview" data-theme="c" data-dividertheme="b"></ul>
+        </div>
+        <div data-id="disclaimer" data-role="footer" data-position="fixed">
+            <p class="mr-disclaimer"><span>MassRoute is made possible by <a href="http://www.twitter.com/MassDOTdev">@MassDot</a>.</span> <a class="mr-learn-btn" href="http://www.eot.state.ma.us/developers/realtime/">Learn more</a></p>
+        </div>
+    </div>
+    <div id="prediction" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>ETA</h1>
+            <a id="refreshbutton" data-role="button" data-icon="refresh" class="ui-btn-right" href="#">Refresh</a>
+        </div>
+        <div data-role="content">
+            <p id="titlefield" class="mr-titlefield"></p>
+            <ul id="predictions" data-role="listview" data-theme="c" data-dividertheme="b"></ul>
+        </div>
+        <div data-id="disclaimer" data-role="footer" data-position="fixed">
+            <p class="mr-disclaimer"><span>MassRoute is made possible by <a href="http://www.twitter.com/MassDOTdev">@MassDot</a>.</span> <a class="mr-learn-btn" href="http://www.eot.state.ma.us/developers/realtime/">Learn more</a></p>
+        </div>
+    </div>
+</body>
+<script id="routeItemRenderer" type="text/x-jquery-tmpl">
+    <li class="ui-li-has-icon ui-li">
+        <a href="#" class="ui-link-inherit">
+            <img src="style/images/bus_icon.png" alt="Route ${title}" class="ui-li-icon ui-li-thumb">
+            <h3 class="ui-li-heading">${title}</h3>
+        </a>
+    </li>
+</script>
+<script id="titleItemRenderer" type="text/x-jquery-tmpl">
+    <li class="ui-li">
+        <a href="#" class="ui-link-inherit">
+            <h3 class="ui-li-heading">${title}</h3>
+        </a>
+    </li>
+</script>
+<script id="readOnlyTitleItemRenderer" type="text/x-jquery-tmpl">
+    <li><h3>${title}</h3></li>
+</script>
+<script src="script/loader.js"></script>
+<script>
+
+$().ready( function() {
+    $("body").css( "visibility", "visible").css( "display", "inherit" );
+    $("div[data-role='page']").live( "pageshow", function( event, ui ) {
+        var header, title, modtitle;
+        header = $("div[data-role='header'] h1",$(this));
+        title = $.trim(header.text());
+        modtitle = "/" + title + ".html";
+        _gaq.push(["_trackPageview",modtitle]);
+    });
+});
+
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  
+</script>
+</html>
