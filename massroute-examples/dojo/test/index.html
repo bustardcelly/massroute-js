@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>dojo massroute unit tests</title>
+    </head>
+    <body>
+        <script>
+            dojoConfig = {
+              parseOnLoad: true,
+              baseUrl: './',
+              modulePaths : {
+                app : "../js/app",
+                appcontext: "../js/app/context",
+                controller : "../js/app/controller",
+                model: '../js/app/model',
+                service : "../js/app/service",
+                renderer: '../js/app/renderer',
+                template: "../template",
+                dojo: '../js/lib/dojo-release-1.6.1/dojo',
+                dijit: '../js/lib/dojo-release-1.6.1/dijit',
+                util: '../js/lib/util'
+              }
+            };
+        </script>
+	<script src="../js/lib/dojo-release-1.6.1/util/doh/runner.js"></script>
+        <script src="../js/lib/dojo-release-1.6.1/dojo/dojo.js"></script>
+	<!-- Tests -->
+	<script src="app/context/massroute.test.js"></script>
+	<script src="app/model/session.test.js"></script>
+	<script>
+	    (function( doh ) {
+		doh.run();
+	    })( doh );
+	</script>
+    </body>
+</html>
