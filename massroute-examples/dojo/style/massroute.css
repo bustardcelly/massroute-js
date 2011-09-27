@@ -17,7 +17,7 @@ ul {
     padding-start: 0px;
 }
 
-ul li {
+ul>li {
     margin: 0 0 2px 0;
     padding: 0;
     background-color: #EEEEEE;
@@ -50,12 +50,12 @@ ul li:last-child {
     box-orient: horizontal;
 }
 
-.icon-list-item a figure img {
+.icon-list-item a figure>img {
     margin: 0px 0.5em;
     vertical-align: middle;
 }
 
-.icon-list-item a figure figcaption {
+.icon-list-item a figure>figcaption {
     display: block;
     vertical-align: middle;
 }
