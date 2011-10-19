@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>massroute: knockout</title>
+        <!--[if lt IE 9]>  
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>  
+        <![endif]-->
+        <link rel="stylesheet"  href="style/massroute.css" />
+        <script src="js/lib/jquery-1.6.1.min.js"></script>
+        <script src="js/lib/knockout-1.3beta.js"></script>
+    </head>
+    <body>
+        <header>
+            <hgroup>
+                <h1 data-bind="text: title"></h1>
+                <h2>real-time bus route information</h2>
+            </hgroup>
+        </header>
+        <!-- Routes -->
+        <section id="routesection" data-bind="visible: routes.visible">
+            <h1 data-bind="text: routes.title"></h1>
+            <nav>
+                <ul data-bind='foreach: routes.list'>
+                    <li class='route-item list-item icon-list-item' style='cursor: pointer;'>
+                        <figure>
+                            <img src='style/image/bus_icon.png' />
+                            <figcaption data-bind="text: title"></figcaption>
+                        </figure>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+        <!-- Destinations -->
+        <section id="destinationsection" data-bind="visible: destinations.visible">
+            <h1 data-bind="text: destinations.title"></h1>
+            <nav><button class="previous-button">back to routes</button></nav>
+            <nav>
+                <h1>Inbound</h1>
+                <ul data-bind="foreach: destinations.inbound">
+                    <li class='destination-item list-item label-list-item' style='cursor: pointer;'>
+                        <p data-bind="text: title"></p>
+                    </li>
+                </ul>
+            </nav>
+            <nav>
+                <h1>Outbound</h1>
+                <ul data-bind="foreach: destinations.outbound">
+                    <li class='destination-item list-item label-list-item' style='cursor: pointer;'>
+                        <p data-bind="text: title"></p>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+        <!-- Stops -->
+        <section id="stopsection" data-bind="visible: stops.visible">
+            <h1 data-bind="text: stops.title"></h1>
+            <nav><button class="previous-button">back to destinations</button></nav>
+            <nav>
+                <ul data-bind="foreach: stops.list">
+                    <li class="stop-item list-item label-list-item" style='cursor: pointer;'>
+                        <p data-bind="text: title"></p>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+        <!-- Predictions -->
+        <section id="predictionsection" data-bind="visible: predictions.visible">
+            <h1 data-bind="text: predictions.title"></h1>
+            <nav>
+                <button class="previous-button">back to stops</button>
+                <button class="refresh-button">refresh</button>
+            </nav>
+            <nav>
+                <ul data-bind="foreach: predictions.list">
+                    <li class="prediction-item list-item label-list-item">
+                        <p data-bind="text: title"></p>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+        <footer>
+            <small>massroute is made possible by <a href="http://www.twitter.com/MassDOTdev">@MassDot</a>. <a href="http://www.eot.state.ma.us/developers/realtime/">Learn more</a></small>
+        </footer>
+        <script src="js/app/model.js"></script>
+        <script src="js/app/context.js"></script>
+        <script src="js/app/service.js"></script>
+        <script src="js/app/main.js"></script>
+    </body>
+</html>

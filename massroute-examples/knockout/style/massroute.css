@@ -1,0 +1,70 @@
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    font-family: Cochin, serif;
+}
+
+ul {
+    margin: 0px 0px 1em 0px;
+    list-style: none;
+    background-color: #DDDDDD;
+    border: 2px solid #DDDDDD;
+    
+    -webkit-padding-start: 0px;
+    -moz-padding-start: 0px;
+    padding-start: 0px;
+}
+
+ul>li {
+    margin: 0 0 2px 0;
+    padding: 0;
+    background-color: #EEEEEE;
+    min-height: 60px;
+    font-size: 1em;
+}
+
+ul li:last-child {
+    margin-bottom: 0px;
+}
+
+.list-item figure, .list-item p {
+    font-size: 1.5em;
+    color: #2A2A2A;
+}
+
+.list-item a {
+    text-decoration: none;
+}
+
+.icon-list-item figure {
+    padding: 0.5em 0px;
+    margin: 0;
+    vertical-align: middle;
+    
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    
+    box-orient: horizontal;
+}
+
+.icon-list-item figure>img {
+    margin: 0px 0.5em;
+    vertical-align: middle;
+}
+
+.icon-list-item figure>figcaption {
+    display: block;
+    vertical-align: middle;
+}
+
+.label-list-item figure, .label-list-item>p {
+    padding: 0.5em;
+    vertical-align: middle;
+}
+
+.label-list-item>p {
+    display: block;
+}
