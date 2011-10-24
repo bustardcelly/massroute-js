@@ -19,7 +19,8 @@
         <!-- Routes -->
         <section id="routesection" data-bind="visible: routes.visible">
             <h1 data-bind="text: routes.title"></h1>
-            <nav>
+            <p data-bind="if: routes.list().length === 0">loading...</p>
+            <nav data-bind="if: routes.list().length > 0">
                 <ul data-bind='foreach: routes.list'>
                     <li class='route-item list-item icon-list-item' style='cursor: pointer;'>
                         <figure>
@@ -36,6 +37,7 @@
             <nav><button class="previous-button">back to routes</button></nav>
             <nav>
                 <h1>Inbound</h1>
+                <p data-bind="if: destinations.inbound().length === 0">loading...</p>
                 <ul data-bind="foreach: destinations.inbound">
                     <li class='destination-item list-item label-list-item' style='cursor: pointer;'>
                         <p data-bind="text: title"></p>
@@ -44,6 +46,7 @@
             </nav>
             <nav>
                 <h1>Outbound</h1>
+                <p data-bind="if: destinations.inbound().length === 0">loading...</p>
                 <ul data-bind="foreach: destinations.outbound">
                     <li class='destination-item list-item label-list-item' style='cursor: pointer;'>
                         <p data-bind="text: title"></p>
@@ -55,7 +58,8 @@
         <section id="stopsection" data-bind="visible: stops.visible">
             <h1 data-bind="text: stops.title"></h1>
             <nav><button class="previous-button">back to destinations</button></nav>
-            <nav>
+            <p data-bind="if: stops.list().length === 0">loading...</p>
+            <nav data-bind="if: stops.list().length > 0">
                 <ul data-bind="foreach: stops.list">
                     <li class="stop-item list-item label-list-item" style='cursor: pointer;'>
                         <p data-bind="text: title"></p>
@@ -70,7 +74,8 @@
                 <button class="previous-button">back to stops</button>
                 <button class="refresh-button">refresh</button>
             </nav>
-            <nav>
+            <p data-bind="if: predictions.list().length == 0">loading...</p>
+            <nav data-bind="if: predictions.list().length > 0">
                 <ul data-bind="foreach: predictions.list">
                     <li class="prediction-item list-item label-list-item">
                         <p data-bind="text: title"></p>
@@ -84,6 +89,7 @@
         <script src="js/app/model.js"></script>
         <script src="js/app/context.js"></script>
         <script src="js/app/service.js"></script>
+        <script src="js/app/controller.js"></script>
         <script src="js/app/main.js"></script>
     </body>
 </html>

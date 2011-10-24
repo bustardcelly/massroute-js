@@ -66,5 +66,6 @@ ul li:last-child {
 }
 
 .label-list-item>p {
+    margin: 0;
     display: block;
 }
