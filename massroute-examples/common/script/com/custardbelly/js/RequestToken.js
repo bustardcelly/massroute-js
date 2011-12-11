@@ -5,8 +5,9 @@
 */
 ;(function( window ) {
 
-	window['custardbelly'] = window.custardbelly || {};
-    window.custardbelly['js'] = window.custardbelly.js || {};
+	window['com'] = window.com || {};
+	window.com['custardbelly'] = window.com.custardbelly || {};
+    window.com.custardbelly['js'] = window.com.custardbelly.js || {};
 
     var RequestToken = (function() {
     	var resultHandler, faultHandler, progHandler,
@@ -70,6 +71,6 @@
     	};
     });
 
-	window.custardbelly.js.RequestToken = RequestToken;
+	window.com.custardbelly.js.RequestToken = RequestToken;
 
 })( this );

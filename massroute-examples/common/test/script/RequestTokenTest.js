@@ -4,7 +4,7 @@
 	
 	test( 'result handler', function() {
 		stop();
-		var token = new custardbelly.js.RequestToken(),
+		var token = new com.custardbelly.js.RequestToken(),
 			message = 'Hello World!';
 
 		function handleResult( value ) {
@@ -20,7 +20,7 @@
 
 	test( 'fault handler', function() {
 		stop();
-		var token = new custardbelly.js.RequestToken(),
+		var token = new com.custardbelly.js.RequestToken(),
 			message = 'UH-OH!';
 		
 		function handleFault( value ) {
@@ -36,7 +36,7 @@
 
 	test( 'progress handler', function() {
 		stop();
-		var token = new custardbelly.js.RequestToken(),
+		var token = new com.custardbelly.js.RequestToken(),
 			progress = 0;
 		
 		function handleProgress( value ) {
