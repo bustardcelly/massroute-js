@@ -1,46 +1,46 @@
-;(function(window) {
+require( ['../script/com/custardbelly/js/RequestToken.js'], function( RequestToken ) {
 
-	module('RequestToken');
+	module('Request Token Test');
 	
 	test( 'result handler', function() {
 		stop();
-		var token = new com.custardbelly.js.RequestToken(),
+		var token = new RequestToken(),
 			message = 'Hello World!';
 
 		function handleResult( value ) {
-			equals( value, message, 'pass. resolved to current value' );
+			equals( value, message, 'Resolved to current value' );
 			start();
 		}
 
 		token.then( handleResult );
 		setTimeout( function() {
 			token.setState( 'resolved', message );
-		}, 100)
+		}, 100);
 	});
 
 	test( 'fault handler', function() {
 		stop();
-		var token = new com.custardbelly.js.RequestToken(),
+		var token = new RequestToken(),
 			message = 'UH-OH!';
 		
 		function handleFault( value ) {
-			equals( value, message, 'pass. rejected to current value' );
+			equals( value, message, 'Rejected to current value' );
 			start();
 		}
 
 		token.then( null, handleFault );
 		setTimeout( function() {
-			token.setState( 'rejected', message )
+			token.setState( 'rejected', message );
 		}, 100);
 	});
 
 	test( 'progress handler', function() {
 		stop();
-		var token = new com.custardbelly.js.RequestToken(),
+		var token = new RequestToken(),
 			progress = 0;
 		
 		function handleProgress( value ) {
-			equals( value, progress, 'pass. progress accepted' );
+			equals( value, progress, 'Progress accepted' );
 			start();
 		}
 
@@ -51,4 +51,4 @@
 		}, 100);
 	});
 
-})(this);
+});

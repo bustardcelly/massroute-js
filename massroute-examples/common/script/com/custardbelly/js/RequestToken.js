@@ -1,76 +1,67 @@
-/*
-	http://programming34m0.blogspot.com/2010/06/javascript-best-practice-one-special.html
-	It is becoming common practice to concatenate javascript files.
-	Beginning the file with a semicolon will prevent this kind of problem. Where a file begins with a closure, best practice should dictate that it begins with a semicolon.
-*/
-;(function( window ) {
+define(function() {
 
-	window['com'] = window.com || {};
-	window.com['custardbelly'] = window.com.custardbelly || {};
-    window.com.custardbelly['js'] = window.com.custardbelly.js || {};
+	var RequestToken = (function() {
+		var self = this,
+			resultHandler, faultHandler, progHandler,
+			states, state, stateValue;
 
-    var RequestToken = (function() {
-    	var resultHandler, faultHandler, progHandler,
-    		states, state, stateValue,
-    		token = this;
+		function _createStates() {
+			states = {
+				'resolved': _resolve,
+				'rejected': _reject,
+				'progress': _progress
+			};
+		}
 
-    	function _createStates() {
-    		states = {};
-    		states['resolved'] = _resolve;
-    		states['rejected'] = _reject;
-    		states['progress'] = _progress;
-    	}
+		function _resolveState( currentState ) {
+			if( typeof currentState !== undefined ) {
+				self.setState( state );
+			}
+		}
 
-    	function _resolveState( currentState ) {
-    		if( typeof currentState !== undefined ) {
-    			_applyState( state );
-    		}
-    	}
+		function _resolve( value ) {
+			if( typeof resultHandler !== 'undefined' ) {
+				resultHandler.call( null, value );
+			}
+		}
 
-    	function _applyState( newState, value ) {
-    		state = newState;
-    		stateValue = value;
-    		if( states.hasOwnProperty( state ) ) {
-    			states[state]( stateValue );
-    		}
-    	}
+		function _reject( value ) {
+			if( typeof faultHandler !== 'undefined' ) {
+				faultHandler.call( null, value );	
+			}
+		}
 
-    	function _resolve( value ) {
-    		if( typeof resultHandler !== 'undefined' ) {
-    			resultHandler.call( null, value )	
-    		}
-    	}
+		function _progress( value ) {
+			if( typeof progHandler !== 'undefined' ) {
+				progHandler.call( null, value );
+			}
+		}
 
-    	function _reject( value ) {
-    		if( typeof faultHandler !== 'undefined' ) {
-    			faultHandler.call( null, value );	
-    		}
-    	}
+		this.then = function( fullfilledHandler, errorHandler, progressHandler ) {
 
-    	function _progress( value ) {
-    		if( typeof progHandler !== 'undefined' ) {
-    			progHandler.call( null, value );
-    		}
-    	}
+			_createStates();
+			state = 'unresolved';
 
-    	function _then( fullfilledHandler, errorHandler, progressHandler ) {
+			resultHandler = fullfilledHandler;
+			faultHandler = errorHandler;
+			progHandler = progressHandler;
 
-    		_createStates();
+			_resolveState( state, stateValue );
+			return this;
+		};
 
-    		resultHandler = fullfilledHandler;
-    		faultHandler = errorHandler;
-    		progHandler = progressHandler;
+		this.setState = function( newState, value ) {
+			state = newState;
+			stateValue = value;
+			if( states.hasOwnProperty( state ) ) {
+				states[state]( stateValue );
+			}
+		};
 
-    		_resolveState( state, stateValue );
-    		return token;
-    	};	
-
-    	return {
-    		then: _then,
-    		setState: _applyState
-    	};
-    });
-
-	window.com.custardbelly.js.RequestToken = RequestToken;
-
-})( this );
+		this.getState = function() {
+			return state;
+		};
+	});
+	
+	return RequestToken;
+});

@@ -3,12 +3,38 @@
 <head>  
     <title>QUnit Test Suite</title>  
     <link rel="stylesheet" href="style/qunit.css" type="text/css">  
-    <!--<script type="text/javascript" src="lib/jquery-1.7.1.min.js"></script>-->
-    <script type="text/javascript" src="lib/qunit.js"></script>  
-    <!-- source -->
+    <script src="../lib/require-1.0.4.js"></script>
+    <script src="lib/qunit.js"></script> 
+    <script>
+        // Snippet from: https://gist.github.com/920405
+        // Because: http://requirejs.org/docs/errors.html#mismatch
+        
+        // Main file for loading RequireJS necessary bits
+        QUnit.config.autostart = false;
+
+        require.config({
+            baseUrl: ".",
+            paths: {
+                "com": "../script/com"
+            }
+        });
+
+        requirejs(['script/RequestTest.js', 'script/RequestTokenTest.js', 'script/RouteStopTest.js'], function() {
+            QUnit.start(); // Tests loaded, run tests
+        });
+    </script>
+    <!-- source 
     <script type="text/javascript" src="../script/com/custardbelly/js/RequestToken.js"></script> 
-    <!-- test -->
-    <script type="text/javascript" src="script/RequestTokenTest.js"></script>  
+    <script type="text/javascript" src="../script/com/custardbelly/js/Request.js"></script>
+    <script type="text/javascript" src="../script/com/custardbelly/massroute/model/InflatableModel.js"></script>
+    <script type="text/javascript" src="../script/com/custardbelly/massroute/model/Route.js"></script>
+    <script type="text/javascript" src="../script/com/custardbelly/massroute/model/RouteStop.js"></script>
+    -->
+    <!-- test
+    <script type="text/javascript" src="script/RequestTokenTest.js"></script>
+    <script type="text/javascript" src="script/RequestTest.js"></script>
+    <script type="text/javascript" src="script/RouteStopTest.js"></script>
+    -->
 </head>  
 <body>  
     <h1 id="qunit-header">QUnit Test Suite</h1>  
