@@ -1,4 +1,4 @@
-require( ['../script/com/custardbelly/js/RequestToken.js', '../script/com/custardbelly/js/Request.js'], function( RequestToken, Request ) {
+require( ['com/custardbelly/js/RequestToken', 'com/custardbelly/js/Request'], function( RequestToken, Request ) {
 	
 	module( "Request Test" );
 	
