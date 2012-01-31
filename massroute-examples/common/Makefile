@@ -8,7 +8,11 @@ PHANTOM_QUNIT_RUNNER = ./build/phantom/run-qunit.js
 TEST_DIR = ./test
 TEST_INDEX_URL = file://localhost/Users/toddanderson/Repositories/massroute_js/massroute-examples/common/test/index.html
 
-all: lint phantom say_done
+# Min/Concat - r.js
+R_JS = java -classpath ./build/rhino/js.jar:./build/closure/compiler.jar org.mozilla.javascript.tools.shell.Main
+R_DIR = ./build/require
+
+all: lint phantom optimize
 
 lint:
 	@echo '==> JSHint $<'
@@ -21,6 +25,8 @@ phantom:
 	${PHANTOM} ${PHANTOM_QUNIT_RUNNER} ${TEST_INDEX_URL};
 	@echo
 
-say_done:
-	@echo '===> DONE!$<'
+optimize:
+	@echo '==> r.js $<'
+	@@for file in `find ${R_DIR} -name "*.build.js"`; \
+	   do echo ===r.js: $$file...===; ${R_JS} ${R_DIR}/r.js -o $$file; done;
 	@echo
