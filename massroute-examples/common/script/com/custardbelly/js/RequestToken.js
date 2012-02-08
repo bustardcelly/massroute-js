@@ -4,7 +4,7 @@ define(function() {
 		var self = this,
 			resultHandler, faultHandler, progHandler,
 			states, state, stateValue;
-
+		
 		function _createStates() {
 			states = {
 				'resolved': _resolve,
@@ -39,7 +39,6 @@ define(function() {
 
 		this.then = function( fullfilledHandler, errorHandler, progressHandler ) {
 
-			_createStates();
 			state = 'unresolved';
 
 			resultHandler = fullfilledHandler;
@@ -61,6 +60,8 @@ define(function() {
 		this.getState = function() {
 			return state;
 		};
+
+		_createStates();
 	});
 	
 	return RequestToken;

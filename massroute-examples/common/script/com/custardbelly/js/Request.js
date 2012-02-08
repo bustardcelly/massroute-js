@@ -21,10 +21,8 @@ define(['com/custardbelly/js/RequestToken'], function( RequestToken ) {
 			}
 		}
 
-		this.send = function( resultHandler, faultHandler, progressHandler ) {
+		this.send = function() {
 			token = new tokenClass();
-			token.then( resultHandler, faultHandler, progressHandler );
-			
 			// Wrap in try catch for Firefox.
 			try {
 				xhr = new XMLHttpRequest();  

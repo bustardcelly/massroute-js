@@ -26,7 +26,7 @@ require( ['com/custardbelly/js/RequestToken', 'com/custardbelly/js/Request'], fu
 		}
 		
 		setTimeout( function() {
-			token = xhr.send( handleResult, handleFault );
+			token = xhr.send().then( handleResult, handleFault );
 		}, 100);
 	});
 
@@ -46,7 +46,7 @@ require( ['com/custardbelly/js/RequestToken', 'com/custardbelly/js/Request'], fu
 		}
 		
 		setTimeout( function() {
-			token = xhr.send( handleResult, handleFault );
+			token = xhr.send().then( handleResult, handleFault );
 		}, 100);
 	});
 
