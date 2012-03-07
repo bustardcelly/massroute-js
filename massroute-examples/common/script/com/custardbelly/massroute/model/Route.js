@@ -1,8 +1,8 @@
 define(['com/custardbelly/massroute/model/InflatableModel'], function( InflatableModel ) {
 	
-	var Route = (function( tag, title ) {
-		this.tag = tag || undefined;
-		this.title = title || undefined;
+	var Route = (function() {
+		this.tag = '';
+		this.title = '';
 	});
 
 	Route.prototype = new InflatableModel();

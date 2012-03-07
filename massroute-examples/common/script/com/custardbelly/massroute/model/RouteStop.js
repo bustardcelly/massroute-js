@@ -1,11 +1,11 @@
 define(['com/custardbelly/massroute/model/InflatableModel'], function( InflatableModel ) {
 	
-	var RouteStop = (function( tag, title, latitude, longitude, stopId ) {
-		this.tag = tag || undefined;
-        this.title = title || undefined;
-        this.latitude = latitude || undefined;
-        this.longitude = longitude || undefined;
-        this.stopId = stopId || undefined;
+	var RouteStop = (function() {
+		this.tag = '';
+        this.title = '';
+        this.latitude = ''
+        this.longitude = '';
+        this.stopId = '';
 	});
 
 	RouteStop.prototype = new InflatableModel();

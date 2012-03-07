@@ -1,4 +1,4 @@
-require( ['com/custardbelly/js/RequestToken', 'com/custardbelly/js/Request'], function( RequestToken, Request ) {
+require( ['com/custardbelly/js/service/RequestToken', 'com/custardbelly/js/service/Request'], function( RequestToken, Request ) {
 	
 	module( "Request Test" );
 	
@@ -21,7 +21,7 @@ require( ['com/custardbelly/js/RequestToken', 'com/custardbelly/js/Request'], fu
 		}
 
 		function handleFault( value ) {
-			equals( ( typeof value != 'undefined' ), true, 'Fault in request to test positive Result. Message: ' + value );
+			equals( ( typeof value !== 'undefined' ), true, 'Fault in request to test positive Result. Message: ' + value );
 			start();
 		}
 		
