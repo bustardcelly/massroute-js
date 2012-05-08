@@ -2,7 +2,14 @@ define(['com/custardbelly/js/service/RequestToken'], function( RequestToken ) {
 
 	var Request = (function( url ) {
 		this.requestURL = url;
-		this.token = new RequestToken();
+		this.token = undefined;
+	});
+
+	/**
+	 * Performs new request, returning RequestToken.
+	 * @return {RequestToken} The RequestToken (promise) for the request.
+	 */
+	Request.prototype.send = function() {
 		var self = this, 
 			xhr,
 			_handleXHRState = function() {
@@ -20,32 +27,30 @@ define(['com/custardbelly/js/service/RequestToken'], function( RequestToken ) {
 					self.token.setState( 'rejected', "There was a problem in request for " + self.requestURL + ". Error: " + xhr.responseText );
 				}
 			};
-
-		this.send = function() {
-			// Wrap in try catch for Firefox.
-			try {
-				xhr = new XMLHttpRequest();  
-				if( 'withCredentials' in xhr ) {
-					xhr.open('GET', this.requestURL, true);
-				} 
-				else if( typeof XDomainRequest != 'undefined' ) {
-					xhr = new XDomainRequest();
-					xhr.open('GET', this.requestURL);
-				}
-
+		
+		// Wrap in try catch for Firefox.
+		try {
+			this.token = new RequestToken();
+			xhr = new XMLHttpRequest();  
+			if( 'withCredentials' in xhr ) {
+				xhr.open('GET', this.requestURL, true);
+			} 
+			else if( typeof XDomainRequest != 'undefined' ) {
+				xhr = new XDomainRequest();
+				xhr.open('GET', this.requestURL);
+			}
 				if( xhr.overrideMimeType ) { 
-					xhr.overrideMimeType('text/xml'); //Firefox & Safari
-				}
-				xhr.onreadystatechange = _handleXHRState;
-				xhr.send(null);	
+				xhr.overrideMimeType('text/xml'); //Firefox & Safari
 			}
-			catch( e ) {
-				this.token.setState( 'rejected', e.message );
-			}
-			
-			return this.token;
-		};
-	});
+			xhr.onreadystatechange = _handleXHRState;
+			xhr.send(null);	
+		}
+		catch( e ) {
+			this.token.setState( 'rejected', e.message );
+		}
+		
+		return this.token;
+	};
 
 	return Request;
 });

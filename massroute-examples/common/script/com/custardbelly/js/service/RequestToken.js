@@ -3,17 +3,12 @@ define(function() {
 	var RequestToken = (function() {
 		var self = this,
 			resultHandler, faultHandler, progHandler,
-			states, state, stateValue,
 			_createStates = function() {
-				states = {
-					'resolved': _resolve,
-					'rejected': _reject,
-					'progress': _progress
-				};
+				
 			},
 			_resolveState = function( currentState ) {
 				if( typeof currentState !== undefined ) {
-					self.setState( state );
+					self.setState( self.state );
 				}
 			},
 			_resolve = function( value ) {
@@ -32,32 +27,37 @@ define(function() {
 				}
 			};
 
+		this.state = undefined;
+		this.stateValue = undefined;
+		this.states = {
+			'resolved': _resolve,
+			'rejected': _reject,
+			'progress': _progress
+		};
 		this.then = function( fullfilledHandler, errorHandler, progressHandler ) {
 
-			state = 'unresolved';
+			this.state = 'unresolved';
 
 			resultHandler = fullfilledHandler;
 			faultHandler = errorHandler;
 			progHandler = progressHandler;
 
-			_resolveState( state, stateValue );
+			_resolveState( this.state, this.stateValue );
 			return this;
 		};
-
-		this.setState = function( newState, value ) {
-			state = newState;
-			stateValue = value;
-			if( states.hasOwnProperty( state ) ) {
-				states[state]( stateValue );
-			}
-		};
-
-		this.getState = function() {
-			return state;
-		};
-
-		_createStates();
 	});
+
+	RequestToken.prototype.setState = function( newState, value ) {
+		this.state = newState;
+		this.stateValue = value;
+		if( this.states.hasOwnProperty( this.state ) ) {
+			this.states[this.state]( this.stateValue );
+		}
+	};
+
+	RequestToken.prototype.getState = function() {
+		return this.state;
+	};
 	
 	return RequestToken;
 });

@@ -3,9 +3,9 @@ define(function() {
 	var InflatableModel = (function() {
 	});
 
-	InflatableModel.prototype = (function() {
+	(function( modelPrototype ) {
 
-		function _inflate( object ) {
+		modelPrototype.inflate = function( object ) {
 			var property;
 			for( property in object ) {
 				if( this.hasOwnProperty( property ) ) {
@@ -15,12 +15,7 @@ define(function() {
 			return this;
 		}
 
-		return {
-			inflate: _inflate
-		};
-
-	})();
+	})(InflatableModel.prototype);
 
 	return InflatableModel;
-
 });
