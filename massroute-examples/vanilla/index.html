@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>massroute-js: simple</title>
+		<title>massroute-js: vanilla</title>
+        <!-- allows for HTML5 elements to be recognized in %lt;IE9 -->
 		<!--[if lt IE 9]>  
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>  
         <![endif]-->
         <link rel="stylesheet"  href="style/massroute.css" />
-         <script src="./lib/require-1.0.7.js"></script>
+         <script src="./lib/require-1.0.8.min.js"></script>
          <script>
             require.config({
                 baseUrl: ".",
                 paths: {
-                    "com": "./script/com",
+                    "com": "../common/script/com",
+                    "app": "./script/app",
                     "lib": "./lib"
                 }
             });

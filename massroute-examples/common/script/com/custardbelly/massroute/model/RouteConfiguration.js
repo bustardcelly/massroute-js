@@ -1,17 +1,12 @@
-define( ['com/custardbelly/massroute/context/MassRouteContext'], function( context ) {
-
-	/**
-	 * The defined utility library in the application context to use for common operations.
-	 * @type {Object}
-	 */
-	var $arrayUtility = context.arrayUtility;
+define( function() {
 
 	/**
 	 * Configuration model representing a route from MassDOT.
 	 * @return {RouteConfiguration}
 	 */
-	var RouteConfiguration = (function() {
-        var _stops = {},
+	var RouteConfiguration = (function( arrayUtility ) {
+        var _ = arrayUtility,
+            _stops = {},
             _stopsByDestination = {},
              /**
 	         * Adds a stop to the map of stops based on tag properties.
@@ -44,10 +39,10 @@ define( ['com/custardbelly/massroute/context/MassRouteContext'], function( conte
         this.inflate = function( route, stops, directions ) {
             this.route = route;
             
-            $arrayUtility.each( stops, function( value ) {
+            _.each( stops, function( value ) {
                addStop( value, _stops ); 
             });
-            $arrayUtility.each( directions, function( value ) {
+            _.each( directions, function( value ) {
                addDestination( value, self.destinations ); 
             });
             return this;
@@ -68,7 +63,7 @@ define( ['com/custardbelly/massroute/context/MassRouteContext'], function( conte
          * @return {massroute.model.RouteDestination}
          */
         this.findDestinationByTag = function( value ) {
-        	return $arrayUtility.find( this.destinations, function(item) {
+        	return _.find( this.destinations, function(item) {
         		return item.tag == value;
         	});
         }
@@ -89,7 +84,7 @@ define( ['com/custardbelly/massroute/context/MassRouteContext'], function( conte
                 payload = [];
                 destinationStops = destination.stops;
                 configurationStops = _stops;
-                $arrayUtility.each( destinationStops, function( value ) {
+                _.each( destinationStops, function( value ) {
                     payload[payload.length] = configurationStops[this.tag];
                 });
                 _stopsByDestination[destinationTag] = payload;
