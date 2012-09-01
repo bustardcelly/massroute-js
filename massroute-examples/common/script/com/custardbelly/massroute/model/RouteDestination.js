@@ -1,4 +1,4 @@
-define(['com/custardbelly/massroute/model/InflatableModel'] function( InflatableModel ) {
+define(['com/custardbelly/massroute/model/InflatableModel'], function( InflatableModel ) {
 	 
 	var RouteDestination = (function(tag, name, title, stops) {
         this.tag = '';

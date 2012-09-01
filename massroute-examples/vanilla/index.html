@@ -7,17 +7,27 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>  
         <![endif]-->
         <link rel="stylesheet"  href="style/massroute.css" />
-         <script src="./lib/require-1.0.8.min.js"></script>
-         <script>
+        <script src="./lib/require-2.0.6.min.js"></script>
+        <script>
             require.config({
                 baseUrl: ".",
                 paths: {
                     "com": "../common/script/com",
                     "app": "./script/app",
-                    "lib": "./lib"
+                    "routing": "app/routing",
+                    "lib": "./lib",
+                    "template": "template"
+                },
+                shim: {
+                    "lib/underscore-1.3.1.min": {
+                        exports: "_"
+                    },
+                    "lib/handlebars-1.0.0.beta.6": {
+                        exports: "Handlebars"
+                    }
                 }
             });
-    </script>
+        </script>
 	</head>
 	<body>
 		 <header>
@@ -26,7 +36,17 @@
                 <h2>real-time bus route information</h2>
             </hgroup>
         </header>
-        <section id="mainsection"></section>
+        <section id="routes"></section>
+        <!-- use data-massrouteid -->
+        <section id="destinations">
+            <ul></ul>
+        </section>
+        <section id="stops">
+            <ul></ul>
+        </section>
+        <section id="predictions">
+            <ul></ul>
+        </section>
         <footer>
             <small>massroute is made possible by <a href="http://www.twitter.com/MassDOTdev">@MassDot</a>. <a href="http://www.eot.state.ma.us/developers/realtime/">Learn more</a></small>
         </footer>

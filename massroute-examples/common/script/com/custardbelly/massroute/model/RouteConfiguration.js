@@ -1,4 +1,5 @@
-define( function() {
+define( ['com/custardbelly/massroute/model/RouteStop', 'com/custardbelly/massroute/model/RouteDestination'], 
+            function( RouteStop, RouteDestination ) {
 
 	/**
 	 * Configuration model representing a route from MassDOT.
@@ -27,7 +28,7 @@ define( function() {
              * @param {map} Object Map of stops, key defined by RouteStop tag.
              */
         var _addStop = function( value, map ) {
-                var stop = new massroute.model.RouteStop().inflate( value );
+                var stop = new RouteStop().inflate( value );
                 map[stop.tag] = stop;
             },
             /**
@@ -36,16 +37,18 @@ define( function() {
              * @param {Array} list The target list to add the destination to.
              */
             _addDestination = function( value, list ) {
-                list[list.length] = new massroute.model.RouteDestination().inflate( value );
-            };
+                list[list.length] = new RouteDestination().inflate( value );
+            },
+            stops = this.stops,
+            destinations = this.destinations;
 
         this.route = route;
             
         this._.each( stops, function( value ) {
-            _addStop( value, this.stops ); 
+            _addStop( value, stops ); 
         });
         this._.each( directions, function( value ) {
-            _addDestination( value, this.destinations ); 
+            _addDestination( value, destinations ); 
         });
         return this;
     };

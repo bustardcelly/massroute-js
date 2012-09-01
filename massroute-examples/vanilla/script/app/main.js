@@ -1,29 +1,32 @@
 (function( require ) {
 	
-	var service, token, parser,
-		Route;
+	var context,
+		routesController;
 
-	function handleRoutes( value ) {
-		var routeList = parser.getNodeMapList(value, 'route'),
-			i = 0, length = routeList.length, routes = [];
-		for( i; i < length; i++ ) {
-			routes[routes.length] = new Route().inflate(routeList[i]);
-		}
-		// console.info( routes );
+	function handleContextLoad( ctx, rtesController ) {
+		context = ctx;
+		routesController = rtesController;
+		context.completeDelegate = handleContextComplete;
 	}
 
-	function handleFault( value ) {
-		console.error( 'main:handleFault-\n', value );
+	function handleContextComplete() {
+		// Set up routing.
+		context.router.map( "routes", function() {
+			routesController.activate();
+		});
+		context.router.map( "destinations", function() {
+			console.log( 'show destinations' );
+		});
+		context.router.map( "stops", function() {
+			console.log( 'show stops' );
+		});
+		context.router.map( "predictions", function() {
+			console.log( 'show predictions' );
+		});
+
+		routesController.activate();
 	}
 
-	function handleContextLoad( context, RouteProto ) {
-		Route = RouteProto;
-		service = context.service;
-		parser = context.parser;
-		token = service.getRoutes();
-		token.then( handleRoutes, handleFault );
-	};
-
-	require( ['app/context', 'com/custardbelly/massroute/model/Route'], handleContextLoad );
+	require( ['app/context', 'app/section/routes-section'], handleContextLoad );
 	
 }( requirejs ));
