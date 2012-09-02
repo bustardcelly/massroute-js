@@ -32,7 +32,7 @@ function renderDestinations( request, response ) {
 	return function( result ) {
 		response.format({
 		  html: function(){
-		    response.render('destinations', {destinations:result});
+		  	response.render('destinations', {destinations:result});
 		  },
 		  json: function(){
 		    response.send( JSON.stringify(result) );

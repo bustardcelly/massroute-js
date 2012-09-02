@@ -21,7 +21,7 @@ exports.RouteConfiguration = function( routeID, stops, destinations ) {
 		getDestinationByID: function( id ) {
 			var i = 0,
 				item;
-			while( i < destinations.length - 1 ) {
+			while( i < destinations.length ) {
 				item = destinations[i];
 				if( id === item.tag ) {
 					return item;

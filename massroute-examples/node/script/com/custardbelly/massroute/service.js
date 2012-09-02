@@ -12,7 +12,9 @@ var http 	= require('http'),
 		path: '/service/publicXMLFeed?command=routeList&a=mbta'
 	},
 	destOptions = { host: 'webservices.nextbus.com' },
-	predOptions = { host: 'webservices.nextbus.com' };
+	predOptions = { host: 'webservices.nextbus.com' },
+	log4js 	= require('log4js-node'),
+	logger  = log4js.getLogger('service');
 
 function requestData( options, parseDelegate, deferred ) {
 	http.get( options, function( http_res ) {
@@ -79,7 +81,7 @@ function parseRoutes( deferred ) {
 		}
 		else {
 			routeList = mapResult( result.route );
-			console.log( 'Routes loaded. Total: ' + routeList.length );
+			logger.debug( 'Routes loaded. Total: ' + routeList.length );
 			deferred(null, routeList);
 		}
 	};
@@ -96,7 +98,7 @@ function parseDestinations( deferred ) {
 				directions = result.route.direction,
 				configuration;
 
-			console.log( "Configuration loaded for " + route.tag + "." );
+			logger.debug( "Configuration loaded for " + route.tag + "." );
 			if( !configurations.hasOwnProperty(route.tag) ) {
 				configurations[route.tag] = model.RouteConfiguration( route.tag, arrayToTagMap(stops), mapDirectionsResult(directions) );
 			}
@@ -122,9 +124,9 @@ function parsePredictions( deferred ) {
 
 exports.getRoutes = function() {
 
-	console.log( "Requesting routes..." );
+	logger.debug( "Requesting routes..." );
 	if( routeList && routeList.length !== 0 ) {
-		console.log( "Returning cached routes." );
+		logger.debug( "Returning cached routes." );
 		return defer( function(deferred) {
 			deferred( null, routeList );
 		});
@@ -136,9 +138,9 @@ exports.getRoutes = function() {
 
 exports.getDestinations = function( routeID ) {
 
-	console.log( "Requesting destinations (configuration) for Route " + routeID + "..." );
+	logger.debug( "Requesting destinations (configuration) for Route " + routeID + "..." );
 	if( configurations && configurations.hasOwnProperty( routeID ) ) {
-		console.log( "Configuration already loaded for Route " + routeID + "." );
+		logger.debug( "Configuration already loaded for Route " + routeID + "." );
 		return defer( function(deferred) {
 			deferred( null, {
 				route: {title: routeID, tag: routeID},
@@ -155,14 +157,15 @@ exports.getDestinations = function( routeID ) {
 exports.getStops = function( routeID, destinationID ) {
 
 	var configuration;
-	console.log( "Requesting stops along " + routeID + " for destination " + destinationID );
+
+	logger.debug( "Requesting stops along " + routeID + " for destination " + destinationID );
 	if( configurations && configurations.hasOwnProperty( routeID ) ) {
 		configuration = configurations[routeID];
-		console.log( "Stops already cached for Route " + routeID +
+		logger.debug( "Stops already cached for Route " + routeID +
 						" on destination " + destinationID + ". Returning cache..." );
 		return defer( function(deferred) {
 			deferred( null, {
-				route: {tag: routeID, title: routeID},
+				route: {title: routeID, tag: routeID},
 				destination: configuration.getDestinationByID( destinationID ),
 				stops: configuration.stopsByDestination( destinationID )
 			});
@@ -172,7 +175,7 @@ exports.getStops = function( routeID, destinationID ) {
 		return this.getDestinations( routeID ).then( function() {
 			configuration = configurations[routeID];
 			if( configuration ) {
-				console.log( "Configuration loaded and returning for stops along Route " + routeID + 
+				logger.debug( "Configuration loaded and returning for stops along Route " + routeID + 
 								" on destination " + destinationID );
 				return {
 					route: {title: routeID, tag: routeID},
@@ -185,7 +188,7 @@ exports.getStops = function( routeID, destinationID ) {
 };
 
 exports.getPredictions = function( routeID, destinationID, stopID ) {
-	console.log( "Requesting predictions for stop " + stopID + " along Route " + routeID +
+	logger.debug( "Requesting predictions for stop " + stopID + " along Route " + routeID +
 					" on destination " + destinationID + "..." );
 	return this.getStops( routeID, destinationID ).then( function() {
 		predOptions.path = predPath.replace('{0}', routeID).replace('{1}', stopID);
