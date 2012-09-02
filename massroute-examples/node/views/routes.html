@@ -1,0 +1,8 @@
+<h1>Routes</h1>
+<ul id="routes">
+  <% routes.forEach(function(route){ %>
+    <li>
+    	<a href="/routes/<%= route.tag %>"><%= route.title %></a>
+   	</li>
+  <% }) %>
+</ul>

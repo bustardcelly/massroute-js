@@ -2,9 +2,9 @@ var _ = require('lodash');
 
 /**
  * RouteConfiguration model, lazily caches and returns stops by destination.
- * @param {[type]} routeID      String
- * @param {[type]} stops        Object {<stopid>:{}}
- * @param {[type]} destinations Array
+ * @param {String} routeID
+ * @param {Object} stops        Object {<stopid>:{}}
+ * @param {Aray} destinations
  */
 exports.RouteConfiguration = function( routeID, stops, destinations ) {
 	var destinationMap,
@@ -13,6 +13,11 @@ exports.RouteConfiguration = function( routeID, stops, destinations ) {
 		routeID: routeID,
 		stops: stops,
 		destinations: destinations,
+		/**
+		 * Returns destination from list based on id.
+		 * @param  {String} id
+		 * @return {Object}    Destination object
+		 */
 		getDestinationByID: function( id ) {
 			var i = 0,
 				item;
@@ -25,6 +30,10 @@ exports.RouteConfiguration = function( routeID, stops, destinations ) {
 			}
 			return undefined;
 		},
+		/**
+		 * Returns mapped destinations based on Inbound/Outbound or whichever other name associated with destination(s).
+		 * @return {Object} Name-based map.
+		 */
 		getDestinations: function() {
 			if( !destinationMap ) {
 				destinationMap = {};
@@ -37,6 +46,11 @@ exports.RouteConfiguration = function( routeID, stops, destinations ) {
 			}
 			return destinationMap;
 		},
+		/**
+		 * Returns list of of Stops associated with destination id.
+		 * @param  {String} id
+		 * @return {Array}  List of stops.
+		 */
 		stopsByDestination: function ( id ) {
 			if( !destinationStopMap.hasOwnProperty( id ) ) {
 				var list = [],

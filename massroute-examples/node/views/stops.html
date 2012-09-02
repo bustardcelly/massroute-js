@@ -1,0 +1,8 @@
+<h1>Stops for <%= stops.destination.title %> along Route <%= stops.route.title %></h1>
+<ul id="stops">
+  <% stops.stops.forEach(function(stop){ %>
+    <li>
+    	<a href="/routes/<%= stops.route.tag %>/destinations/<%= stops.destination.tag %>/stops/<%= stop.tag %>"><%= stop.title %></a>
+   	</li>
+  <% }) %>
+</ul>

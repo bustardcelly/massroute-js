@@ -2,21 +2,17 @@ var http 	= require('http'),
 	parser 	= require('libxml-to-js'),
 	model 	= require('./model'),
 	_ 		= require('lodash'),
-	defer = require('../../../promise').execute,
+	defer 	= require('promise').execute,
 	routeList, 
 	configurations = {}, // {<routeid>:model.RouteConfiguration}
-	routesPath = {
+	destPath = '/service/publicXMLFeed?command=routeConfig&a=mbta&r={0}',
+	predPath = '/service/publicXMLFeed?command=predictions&a=mbta&r={0}&s={1}',
+	routeOptions = {
 		host: 'webservices.nextbus.com',
 		path: '/service/publicXMLFeed?command=routeList&a=mbta'
 	},
-	destPath = {
-		host: 'webservices.nextbus.com',
-		path: '/service/publicXMLFeed?command=routeConfig&a=mbta&r={0}'
-	},
-	predictionsPath = {
-		host: 'webservices.nextbus.com',
-		path: '/service/publicXMLFeed?command=predictions&a=mbta&r={0}&s={1}'
-	};
+	destOptions = { host: 'webservices.nextbus.com' },
+	predOptions = { host: 'webservices.nextbus.com' };
 
 function requestData( options, parseDelegate, deferred ) {
 	http.get( options, function( http_res ) {
@@ -33,6 +29,18 @@ function requestData( options, parseDelegate, deferred ) {
 	});
 }
 
+function getRouteByID( value ) {
+	var i, route;
+	while( i < routeList.length ) {
+		route = routeList[i];
+		if( route.tag === value ) {
+			return route;
+		}
+		i++;
+	}
+	return undefined;
+}
+
 function mapDirectionsResult( list ) {
 	var dir, directions = [];
 	_.each( list, function( item ) {
@@ -46,7 +54,7 @@ function mapDirectionsResult( list ) {
 function mapPredictionResult( item ) {
 	var prediction, predictions = [];
 	prediction = item["@"];
-	prediction.predictions = mapResult(item.direction.prediction);
+	prediction.predictions = (item.direction) ? mapResult(item.direction.prediction) : [];
 	return prediction;
 }
 
@@ -67,11 +75,12 @@ function arrayToTagMap( list ) {
 function parseRoutes( deferred ) {
 	return function( error, result ) {
 		if( error ) { 
-			deferred( JSON.stringify({error:error}) );
+			deferred( {error:error} );
 		}
 		else {
 			routeList = mapResult( result.route );
-			deferred(null, JSON.stringify(routeList) );
+			console.log( 'Routes loaded. Total: ' + routeList.length );
+			deferred(null, routeList);
 		}
 	};
 }
@@ -79,19 +88,23 @@ function parseRoutes( deferred ) {
 function parseDestinations( deferred ) {
 	return function( error, result ) {
 		if( error ) { 
-			deferred( JSON.stringify({error:error}) );
+			deferred( {error:error} );
 		}
 		else {
 			var route = result.route["@"],
 				stops = result.route.stop,
 				directions = result.route.direction,
 				configuration;
-			
+
+			console.log( "Configuration loaded for " + route.tag + "." );
 			if( !configurations.hasOwnProperty(route.tag) ) {
 				configurations[route.tag] = model.RouteConfiguration( route.tag, arrayToTagMap(stops), mapDirectionsResult(directions) );
 			}
 			configuration = configurations[route.tag];
-			deferred(null, JSON.stringify(configuration.getDestinations()) );
+			deferred(null, {
+				route:route, 
+				destinations:configuration.getDestinations()
+			});
 		}
 	};
 }
@@ -99,60 +112,83 @@ function parseDestinations( deferred ) {
 function parsePredictions( deferred ) {
 	return function( error, result ) {
 		if( error ) {
-			deffered( JSON.stringify({error:error}) );
+			deffered( {error:error} );
 		}
 		else {
-			deferred( null, JSON.stringify(mapPredictionResult(result.predictions)) );
+			deferred( null, mapPredictionResult(result.predictions) );
 		}
 	};
 }
 
 exports.getRoutes = function() {
 
+	console.log( "Requesting routes..." );
 	if( routeList && routeList.length !== 0 ) {
+		console.log( "Returning cached routes." );
 		return defer( function(deferred) {
-			deferred( null, JSON.stringify(routeList) );
+			deferred( null, routeList );
 		});
 	}
 	else {
-		return defer( requestData, routesPath, parseRoutes );
+		return defer( requestData, routeOptions, parseRoutes );
 	}
 };
 
 exports.getDestinations = function( routeID ) {
 
+	console.log( "Requesting destinations (configuration) for Route " + routeID + "..." );
 	if( configurations && configurations.hasOwnProperty( routeID ) ) {
+		console.log( "Configuration already loaded for Route " + routeID + "." );
 		return defer( function(deferred) {
-			deferred( null, JSON.stringify(configurations[routeID].getDestinations()) );
+			deferred( null, {
+				route: {title: routeID, tag: routeID},
+				destinations:configurations[routeID].getDestinations()
+			});
 		});
 	}
 	else {
-		destPath.path = destPath.path.replace('{0}', routeID);
-		return defer( requestData, destPath, parseDestinations );
+		destOptions.path = destPath.replace('{0}', routeID);
+		return defer( requestData, destOptions, parseDestinations );
 	}
 };
 
 exports.getStops = function( routeID, destinationID ) {
 
+	var configuration;
+	console.log( "Requesting stops along " + routeID + " for destination " + destinationID );
 	if( configurations && configurations.hasOwnProperty( routeID ) ) {
+		configuration = configurations[routeID];
+		console.log( "Stops already cached for Route " + routeID +
+						" on destination " + destinationID + ". Returning cache..." );
 		return defer( function(deferred) {
-			deferred( null, JSON.stringify(configurations[routeID].stopsByDestination( destinationID )) );
+			deferred( null, {
+				route: {tag: routeID, title: routeID},
+				destination: configuration.getDestinationByID( destinationID ),
+				stops: configuration.stopsByDestination( destinationID )
+			});
 		});
 	}
 	else {
 		return this.getDestinations( routeID ).then( function() {
-			var configuration = configurations[routeID];
+			configuration = configurations[routeID];
 			if( configuration ) {
-				return JSON.stringify(configuration.stopsByDestination( destinationID ));
+				console.log( "Configuration loaded and returning for stops along Route " + routeID + 
+								" on destination " + destinationID );
+				return {
+					route: {title: routeID, tag: routeID},
+					destination: configuration.getDestinationByID( destinationID ),
+					stops: configuration.stopsByDestination( destinationID )
+				};
 			}
 		});
 	}
 };
 
 exports.getPredictions = function( routeID, destinationID, stopID ) {
-
+	console.log( "Requesting predictions for stop " + stopID + " along Route " + routeID +
+					" on destination " + destinationID + "..." );
 	return this.getStops( routeID, destinationID ).then( function() {
-		predictionsPath.path = predictionsPath.path.replace('{0}', routeID).replace('{1}', stopID);
-		return defer( requestData, predictionsPath, parsePredictions );
+		predOptions.path = predPath.replace('{0}', routeID).replace('{1}', stopID);
+		return defer( requestData, predOptions, parsePredictions );
 	});
 };

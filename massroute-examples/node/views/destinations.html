@@ -1,0 +1,9 @@
+<h1>Destinations along <%= destinations.route.title %></h1>
+<% for(var name in destinations.destinations ){ %>
+	<h2><%= name %></h2>
+	<ul id="destinations">
+		<% destinations.destinations[name].forEach(function(destination){ %>
+		<li><a href="/routes/<%= destinations.route.tag %>/destinations/<%= destination.tag %>"><%= destination.title %></a></li>
+		<% }) %>
+	</ul>
+<% } %>
