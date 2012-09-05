@@ -1,0 +1,25 @@
+<% 
+var dirTag = (predictions.predictions.length > 0 ) ? predictions.predictions[0].dirTag : null;
+var dirLink = '/routes/' + predictions.routeTag + ( (dirTag!=null) ? '/destinations/' + dirTag : '' );
+%>
+<header id="header">
+	<h1>Predictions for <a class="header-link" href="<%= dirLink %>"><%= predictions.stopTitle %></a></h1>
+	<h1>along <a class="header-link" href="/routes">Route <%= predictions.routeTitle %></a></h1>
+</header>
+<section class="sesion">
+<% if(predictions.predictions.length > 0 ) { %>
+	<ul id="predictions" class="list">
+		<% predictions.predictions.forEach(function(prediction){ %>
+			<li class="routelist-item"><%
+				if(prediction.minutes === 0) { %>
+					<%= prediction.seconds %> seconds
+				<% } else { %> 
+					<%= prediction.minutes %> minutes <%= prediction.seconds % 60 %> seconds
+				<% } %>
+			</li>
+		<% }) %>
+	</ul>
+<% } else { %>
+<p class="routelist-item">No predictions at this time.</p>
+<% } %>
+</section>

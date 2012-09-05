@@ -45,11 +45,23 @@ function getRouteByID( value ) {
 
 function mapDirectionsResult( list ) {
 	var dir, directions = [];
-	_.each( list, function( item ) {
-		dir = item["@"];
-		dir.stop = mapResult(item.stop);
-		directions[directions.length] = dir;
-	});
+	if( list instanceof Array ) {
+		_.each( list, function( item ) {
+			dir = item["@"];
+			dir.stop = mapResult(item.stop);
+			directions[directions.length] = dir;
+		});
+	}
+	else {
+		try {
+			dir = list["@"];
+			dir.stop = mapResult(list.stop);
+			directions[directions.length] = dir;
+		}
+		catch( e ) {
+			logger.error( 'Error in parsing direction. [REASON] :: ' + e.message );
+		}
+	}
 	return directions;
 }
 
@@ -99,6 +111,7 @@ function parseDestinations( deferred ) {
 				configuration;
 
 			logger.debug( "Configuration loaded for " + route.tag + "." );
+			logger.debug( directions );
 			if( !configurations.hasOwnProperty(route.tag) ) {
 				configurations[route.tag] = model.RouteConfiguration( route.tag, arrayToTagMap(stops), mapDirectionsResult(directions) );
 			}

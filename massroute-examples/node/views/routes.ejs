@@ -1,0 +1,13 @@
+<header id="header">
+	<h1 class="title">Routes</h1>
+	<h2>Select a route to show destinations</h2>
+</header>
+<section id="section">
+	<ul id="routes" class="list">
+	  <% routes.forEach(function(route){ %>
+	    <li class="routelist-item">
+	    	<a href="/routes/<%= route.tag %>"><%= route.title %></a>
+	   	</li>
+	  <% }) %>
+	</ul>
+</section>

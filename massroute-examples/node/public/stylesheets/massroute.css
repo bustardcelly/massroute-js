@@ -1,0 +1,86 @@
+body {
+	font: 100%/1.5 sans-serif;
+}
+
+header {
+	display: block;
+	/*position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;*/
+	padding: 1em 0 0 0;
+	background-color: #ffffff;
+}
+
+footer {
+	display: block;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 0.5em;
+	background-color: #ffffff;
+}
+
+header h1 {
+	font-size: 2em;
+	padding: 0 0.5em 0 0.5em;
+	text-align: right;
+}
+
+header h2 {
+	font-size: 1em;
+	padding: 0 0.5em .5em .5em;
+	text-align: right;
+}
+
+section {
+	/*margin-top: 8em;*/
+	margin-bottom: 2em;
+}
+
+.attribution {
+	font-size: 0.8em;
+	text-align: center;
+}
+
+.header-link {
+	color: #2F5DA6;
+}
+
+.title {
+	color: #2F5DA6;
+}
+
+.destination-title {
+	font-size: 1.5em;
+	color: #ffffff;
+	background-color: #7691cd;
+	padding: 1em;
+}
+
+.list {
+	list-style: none;
+}
+
+.routelist-item {
+	border-top-color: #556ca2;
+	border-top-style: solid;
+	border-top-width: 0.1em;
+	border-bottom-color: #556ca2;
+	border-bottom-style: solid;
+	border-bottom-width: 0.1em;
+	background-color: #CDD5EA;
+	color: #2A2A2A;
+	min-height: 44px;
+	margin-top: -0.1em;
+	font-size: 1.5em;
+	padding: 1.5em 0 1em 1em;
+	cursor: pointer;
+}
+
+.routelist-item a {
+	display: inline-block;
+    text-decoration: none;
+    color: #2A2A2A;
+}

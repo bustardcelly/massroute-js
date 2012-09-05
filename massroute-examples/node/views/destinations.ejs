@@ -1,0 +1,15 @@
+<header id="header">
+	<h1>Destinations</h1>
+	<h1>along <a class="header-link" href="/routes">Route <%= destinations.route.title %></a></h1>
+	<h2>Select a destination to see stops available</h2>
+</header>
+<section id="section">
+	<% for(var name in destinations.destinations ){ %>
+		<p class="destination-title"><%= name %></p>
+		<ul id="destinations" class="list">
+			<% destinations.destinations[name].forEach(function(destination){ %>
+			<li class="routelist-item"><a href="/routes/<%= destinations.route.tag %>/destinations/<%= destination.tag %>"><%= destination.title %></a></li>
+			<% }) %>
+		</ul>
+	<% } %>
+</section>

@@ -1,0 +1,18 @@
+<header id="header">
+	<h1>Stops for <a class="header-link" href="/routes/<%= stops.route.tag %>"><%= stops.destination.title %></a></h1>
+	<h1>along <a class="header-link" href="/routes">Route <%= stops.route.title %></a></h1>
+	<h2>Select a stop to see next arrival times</h2>
+</header>
+<section id="section">
+<% if( stops.stops && stops.stops.length > 0 ) { %>
+	<ul id="stops" class="list">
+  		<% stops.stops.forEach(function(stop){ %>
+	    <li class="routelist-item">
+	    	<a href="/routes/<%= stops.route.tag %>/destinations/<%= stops.destination.tag %>/stops/<%= stop.tag %>"><%= stop.title %></a>
+	   	</li>
+  		<% }); %>
+  	</ul>
+<% } else { %>
+ 	<p class="routelist-item">No stops found.</p>
+<% } %>
+</section>
