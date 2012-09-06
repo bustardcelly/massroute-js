@@ -11,7 +11,7 @@ var dirLink = '/routes/' + predictions.routeTag + ( (dirTag!=null) ? '/destinati
 	<ul id="predictions" class="list">
 		<% predictions.predictions.forEach(function(prediction){ %>
 			<li class="routelist-item"><%
-				if(prediction.minutes === 0) { %>
+				if(prediction.minutes.toString() === '0') { %>
 					<%= prediction.seconds %> seconds
 				<% } else { %> 
 					<%= prediction.minutes %> minutes <%= prediction.seconds % 60 %> seconds

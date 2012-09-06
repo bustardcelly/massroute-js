@@ -1,0 +1,4 @@
+{
+	"name": "promise",
+	"main": "./promise.js"
+}

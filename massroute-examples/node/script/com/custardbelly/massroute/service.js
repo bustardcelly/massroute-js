@@ -111,7 +111,6 @@ function parseDestinations( deferred ) {
 				configuration;
 
 			logger.debug( "Configuration loaded for " + route.tag + "." );
-			logger.debug( directions );
 			if( !configurations.hasOwnProperty(route.tag) ) {
 				configurations[route.tag] = model.RouteConfiguration( route.tag, arrayToTagMap(stops), mapDirectionsResult(directions) );
 			}

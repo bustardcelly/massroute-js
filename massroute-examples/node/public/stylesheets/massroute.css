@@ -4,12 +4,11 @@ body {
 
 header {
 	display: block;
-	/*position: fixed;
-	top: 0px;
-	left: 0px;
-	right: 0px;*/
 	padding: 1em 0 0 0;
 	background-color: #ffffff;
+	background-image: url('/assets/graphics/logo.png');
+	background-position: -18px -18px;
+	background-repeat: no-repeat;
 }
 
 footer {
@@ -52,6 +51,10 @@ section {
 	color: #2F5DA6;
 }
 
+.credit-link {
+	color: #2F5DA6;
+}
+
 .destination-title {
 	font-size: 1.5em;
 	color: #ffffff;
@@ -75,7 +78,7 @@ section {
 	min-height: 44px;
 	margin-top: -0.1em;
 	font-size: 1.5em;
-	padding: 1.5em 0 1em 1em;
+	padding: 1.5em 1.5em 1em 1em;
 	cursor: pointer;
 }
 
@@ -83,4 +86,7 @@ section {
 	display: inline-block;
     text-decoration: none;
     color: #2A2A2A;
+    position: relative;
+    top: -0.3em;
+    left: 0.5em;
 }
