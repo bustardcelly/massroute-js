@@ -12,11 +12,11 @@ header {
 }
 
 footer {
-	display: block;
-	position: fixed;
+	/*float: none;
+	position: absolute;
 	bottom: 0px;
 	left: 0px;
-	right: 0px;
+	right: 0px;*/
 	padding: 0.5em;
 	background-color: #ffffff;
 }
@@ -34,8 +34,8 @@ header h2 {
 }
 
 section {
-	/*margin-top: 8em;*/
-	margin-bottom: 2em;
+	/*margin-top: 8em;
+	margin-bottom: 2em;*/
 }
 
 .attribution {
@@ -75,7 +75,7 @@ section {
 	border-bottom-width: 0.1em;
 	background-color: #CDD5EA;
 	color: #2A2A2A;
-	min-height: 44px;
+	min-height: 1em;
 	margin-top: -0.1em;
 	font-size: 1.5em;
 	padding: 1.5em 1.5em 1em 1em;

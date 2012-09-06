@@ -36,5 +36,5 @@ app.use( function(req, res, next){
   res.send(404, 'page not found');
 });
 
-app.listen(3000);
-logger.info("MassRoute middleware server running on port 3000 in %s mode", app.settings.env);
+app.listen(3001);
+logger.info("MassRoute middleware server running on port 3001 in %s mode", app.settings.env);
