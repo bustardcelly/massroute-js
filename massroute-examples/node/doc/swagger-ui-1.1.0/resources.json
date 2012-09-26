@@ -1,0 +1,11 @@
+{
+	"apiVersion":"0.2",
+	"swaggerVersion":"1.1",
+	"basePath":"http://localhost:3001/docs",
+	"apis":[
+		{
+			"path":"/routes",
+			"description":"Operations about Routes provided by MassDOT Real-Time service."
+		}
+	]
+}

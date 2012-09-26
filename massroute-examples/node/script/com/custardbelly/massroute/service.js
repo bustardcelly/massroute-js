@@ -1,9 +1,8 @@
-var http 	= require('http'),
-	parser 	= require('libxml-to-js'),
-	model 	= require('./model'),
-	_ 		= require('lodash'),
-	defer 	= require('promise').execute,
-	routeList, 
+var model 		= require('./model'),
+	proxy		= require('./proxy'),
+	parse_util	= proxy.parse_util,
+	defer 		= require('promise').execute,
+	routeList,
 	configurations = {}, // {<routeid>:model.RouteConfiguration}
 	destPath = '/service/publicXMLFeed?command=routeConfig&a=mbta&r={0}',
 	predPath = '/service/publicXMLFeed?command=predictions&a=mbta&r={0}&s={1}',
@@ -16,83 +15,13 @@ var http 	= require('http'),
 	log4js 	= require('log4js-node'),
 	logger  = log4js.getLogger('service');
 
-function requestData( options, parseDelegate, deferred ) {
-	http.get( options, function( http_res ) {
-		var data = '';
-	    http_res.on('data', function(chunk) {
-	        data += chunk;
-	    })
-	    .on('end', function() {
-	    	parser( data, parseDelegate(deferred) );
-	    });
-	})
-	.on('error', function(e) {
-	  deferred( JSON.stringify({error:e.message}) );
-	});
-}
-
-function getRouteByID( value ) {
-	var i, route;
-	while( i < routeList.length ) {
-		route = routeList[i];
-		if( route.tag === value ) {
-			return route;
-		}
-		i++;
-	}
-	return undefined;
-}
-
-function mapDirectionsResult( list ) {
-	var dir, directions = [];
-	if( list instanceof Array ) {
-		_.each( list, function( item ) {
-			dir = item["@"];
-			dir.stop = mapResult(item.stop);
-			directions[directions.length] = dir;
-		});
-	}
-	else {
-		try {
-			dir = list["@"];
-			dir.stop = mapResult(list.stop);
-			directions[directions.length] = dir;
-		}
-		catch( e ) {
-			logger.error( 'Error in parsing direction. [REASON] :: ' + e.message );
-		}
-	}
-	return directions;
-}
-
-function mapPredictionResult( item ) {
-	var prediction, predictions = [];
-	prediction = item["@"];
-	prediction.predictions = (item.direction) ? mapResult(item.direction.prediction) : [];
-	return prediction;
-}
-
-function mapResult( list ) {
-	return _.map( list, function( value ) {
-		return value["@"];
-	});
-}
-
-function arrayToTagMap( list ) {
-	var map = {}, ls = mapResult(list);
-	_.each( ls, function( item ) {
-		map[item.tag] = item;
-	});
-	return map;
-}
-
 function parseRoutes( deferred ) {
 	return function( error, result ) {
 		if( error ) { 
 			deferred( {error:error} );
 		}
 		else {
-			routeList = mapResult( result.route );
+			routeList = parse_util.mapResult( result.route );
 			logger.debug( 'Routes loaded. Total: ' + routeList.length );
 			deferred(null, routeList);
 		}
@@ -112,7 +41,7 @@ function parseDestinations( deferred ) {
 
 			logger.debug( "Configuration loaded for " + route.tag + "." );
 			if( !configurations.hasOwnProperty(route.tag) ) {
-				configurations[route.tag] = model.RouteConfiguration( route.tag, arrayToTagMap(stops), mapDirectionsResult(directions) );
+				configurations[route.tag] = model.RouteConfiguration( route.tag, parse_util.arrayToKeyMap(stops, 'tag'), parse_util.mapDirectionsResult(directions) );
 			}
 			configuration = configurations[route.tag];
 			deferred(null, {
@@ -126,10 +55,10 @@ function parseDestinations( deferred ) {
 function parsePredictions( deferred ) {
 	return function( error, result ) {
 		if( error ) {
-			deffered( {error:error} );
+			deferred( {error:error} );
 		}
 		else {
-			deferred( null, mapPredictionResult(result.predictions) );
+			deferred( null, parse_util.mapPredictionResult(result.predictions) );
 		}
 	};
 }
@@ -144,7 +73,7 @@ exports.getRoutes = function() {
 		});
 	}
 	else {
-		return defer( requestData, routeOptions, parseRoutes );
+		return defer( proxy.requestData, routeOptions, parseRoutes );
 	}
 };
 
@@ -162,7 +91,7 @@ exports.getDestinations = function( routeID ) {
 	}
 	else {
 		destOptions.path = destPath.replace('{0}', routeID);
-		return defer( requestData, destOptions, parseDestinations );
+		return defer( proxy.requestData, destOptions, parseDestinations );
 	}
 };
 
@@ -204,6 +133,6 @@ exports.getPredictions = function( routeID, destinationID, stopID ) {
 					" on destination " + destinationID + "..." );
 	return this.getStops( routeID, destinationID ).then( function() {
 		predOptions.path = predPath.replace('{0}', routeID).replace('{1}', stopID);
-		return defer( requestData, predOptions, parsePredictions );
+		return defer( proxy.requestData, predOptions, parsePredictions );
 	});
 };

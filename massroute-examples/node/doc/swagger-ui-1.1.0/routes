@@ -1,0 +1,136 @@
+{
+	"apiVersion":"0.2",
+	"swaggerVersion":"1.1",
+	"basePath":"http://localhost:3001/docs",
+	"resourcePath":"/routes",
+	"apis":[
+		{
+			"path":"/routes",
+			"description":"Requests all routes available from MassDOT service.",
+			"operations":[
+				{
+					"httpMethod":"GET",
+					"summary":"Find all routes available.",
+					"notes":"Returns a list of route objects.",
+					"responseClass":"Object :: {'tag':<value>, 'title':<value>}",
+					"nickname":"getRoutes",
+					"parameters":[],
+					"errorResponses":[
+						{
+							"code":404,
+							"reason":"Routes not found"
+						}
+					]
+				}
+			]
+		},
+		{
+			"path":"/routes/:routeId",
+			"description":"Requests destinations based on route id.",
+			"operations":[
+				{
+					"httpMethod":"GET",
+					"summary":"Find destinations along route.",
+					"notes":"Returns a mapped list of destinations based on direction (Inbound/Outbound).",
+					"responseClass":"Object :: {'route':<route object>, 'destinations':{<key>:[<destination object>]}}",
+					"nickname":"getDestinationsAlongRoute",
+					"parameters":[
+						{
+							"name":"routeId",
+							"description":"ID of route that is used to find destinations.",
+							"paramType":"path",
+							"required":true,
+							"allowMultiple":false,
+							"dataType":"string"
+						}
+					],
+					"errorResponses":[
+						{
+							"error":"message"
+						}
+					]
+				}
+			]
+		},
+		{
+			"path":"/routes/:routeId/destinations/:destinationId",
+			"description":"Requests stops along route towards destination based on destinationId.",
+			"operations":[
+				{
+					"httpMethod":"GET",
+					"summary":"Find stops along route destination.",
+					"notes":"Returns a list of stops based on directionId.",
+					"responseClass":"Object :: {'route':<route object>, 'destination':<destination object>, 'stops':[<stop object>]}",
+					"nickname":"getStopsByDestination",
+					"parameters":[
+						{
+							"name":"routeId",
+							"description":"ID of route that is used to find destinations.",
+							"paramType":"path",
+							"required":true,
+							"allowMultiple":false,
+							"dataType":"string"
+						},
+						{
+							"name":"destinationId",
+							"description":"ID of destination that is used to find stops.",
+							"paramType":"path",
+							"required":true,
+							"allowMultiple":false,
+							"dataType":"string"
+						}
+					],
+					"errorResponses":[
+						{
+							"error":"message"
+						}
+					]
+				}
+			]
+		},
+		{
+			"path":"/routes/:routeId/destinations/:destinationId/stops/:stopId",
+			"description":"Requests predictions for arrival times at a stop along a route.",
+			"operations":[
+				{
+					"httpMethod":"GET",
+					"summary":"Finds predicted arrival times for stop.",
+					"notes":"Returns a list of time-based predictions of arrival at stop.",
+					"responseClass":"Object :: {'routeTitle':<string>, 'stopTitle':<string>, 'dirTag':<string> 'predictions':[<prediction object>]}",
+					"nickname":"getArrivalTimesForStop",
+					"parameters":[
+						{
+							"name":"routeId",
+							"description":"ID of route that is used to find destinations.",
+							"paramType":"path",
+							"required":true,
+							"allowMultiple":false,
+							"dataType":"string"
+						},
+						{
+							"name":"destinationId",
+							"description":"ID of destination that is used to find stops.",
+							"paramType":"path",
+							"required":true,
+							"allowMultiple":false,
+							"dataType":"string"
+						},
+						{
+							"name":"stopId",
+							"description":"ID of stop that is used to find arrival times.",
+							"paramType":"path",
+							"required":true,
+							"allowMultiple":false,
+							"dataType":"string"
+						}
+					],
+					"errorResponses":[
+						{
+							"error":"message"
+						}
+					]
+				}
+			]
+		}
+	]
+}
