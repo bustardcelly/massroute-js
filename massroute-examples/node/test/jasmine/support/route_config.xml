@@ -1,0 +1,14 @@
+<body copyright="All data copyright MBTA 2012.">
+	<route tag="5" title="5" color="ffcc33" oppositeColor="000000" latMin="42.3206799" latMax="42.3385899" lonMin="-71.05765" lonMax="-71.02505">
+		<stop tag="35201" title="Old Colony Ave @ McDonough Way" lat="42.3284899" lon="-71.05269" stopId="35201"/>
+		<stop tag="34" title="P St @ E 2nd St" lat="42.33753" lon="-71.0273099" stopId="00034"/>
+		<stop tag="35" title="P St @ E Broadway" lat="42.33584" lon="-71.0272399" stopId="00035"/>
+		<direction tag="5_1_var0" title="McCormack Housing via Andrew Station" name="Inbound" useForUI="true">
+			<stop tag="34"/>
+			<stop tag="35"/>
+		</direction>
+		<direction tag="5_0_var0" title="City Point via Andrew Station" name="Outbound" useForUI="true">
+			<stop tag="35201"/>
+		</direction>
+	</route>
+</body>

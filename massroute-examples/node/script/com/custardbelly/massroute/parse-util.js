@@ -2,6 +2,12 @@ var _ 		= require('lodash'),
 	log4js 	= require('log4js-node'),
 	logger  = log4js.getLogger('service');
 
+/**
+ * Converts a list of objects to a keyed map based on provided key value.
+ * @param  {Array} list    List of objects
+ * @param  {String} itemKey The property name to be used as a key in the map.
+ * @return {Object}         Mapped object with provided itemKey as the key and object inlist as value.
+ */
 exports.arrayToKeyMap = function( list, itemKey ) {
 	var map = {}, ls = this.mapResult(list);
 	_.each( ls, function( item ) {
@@ -10,12 +16,27 @@ exports.arrayToKeyMap = function( list, itemKey ) {
 	return map;
 }
 
+/**
+ * Returns object represented by the @ character which is a result of the libxml-to-js parser.
+ * @param  {Array} list List of objects that each are keyed with a @ character.
+ * @return {Object}      Object held under the @ key.
+ */
 exports.mapResult = function( list ) {
-	return _.map( list, function( value ) {
-		return value["@"];
-	});
+	if( list instanceof Array ) {
+		return _.map( list, function( value ) {
+			return value["@"];
+		});
+	}
+	else {
+		return list["@"];
+	}
 }
 
+/**
+ * Bases prediction item and appends the list of predictions to the object.
+ * @param  {Object} item Parsed XML object for prediction
+ * @return {Object}      Prediction object with properly parsed list of predictions.
+ */
 exports.mapPredictionResult = function( item ) {
 	var prediction, predictions = [];
 	prediction = item["@"];
@@ -23,7 +44,12 @@ exports.mapPredictionResult = function( item ) {
 	return prediction;
 }
 
-exports.mapDirectionsResult = function( list ) {
+/**
+ * Returns a list of direction objects from either a list or map of parsed directions.		
+ * @param  {Array|Object} list An array or object representing a list of directions.		
+ * @return {Array}      A list of mapped directions based on parser results.
+ */
+exports.listDirectionsResult = function( list ) {
 	var dir, 
 		directions = [],
 		self = this;

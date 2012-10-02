@@ -1,0 +1,11 @@
+<body copyright="All data copyright MBTA 2012.">
+	<predictions agencyTitle="MBTA" routeTitle="39" routeTag="39" stopTitle="S Huntington Ave @ Huntington Ave" stopTag="21365">
+		<direction title="Forest Hills Station via Huntington Ave.">
+			<prediction epochTime="1347356671636" seconds="149" minutes="2" isDeparture="false" dirTag="39_0_var0" vehicle="1032" block="S39_25" tripTag="18624407"/>
+			<prediction epochTime="1347357329868" seconds="807" minutes="13" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1023" block="S39_28" tripTag="18624409"/>
+			<prediction epochTime="1347357717868" seconds="1195" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1021" block="S39_30" tripTag="18624413"/>
+			<prediction epochTime="1347358197868" seconds="1675" minutes="27" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1035" block="S39_34" tripTag="18624412"/>
+			<prediction epochTime="1347358677868" seconds="2155" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1022" block="S39_39" tripTag="18624414"/>
+		</direction>
+	</predictions>
+</body>

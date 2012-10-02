@@ -41,7 +41,7 @@ function parseDestinations( deferred ) {
 
 			logger.debug( "Configuration loaded for " + route.tag + "." );
 			if( !configurations.hasOwnProperty(route.tag) ) {
-				configurations[route.tag] = model.RouteConfiguration( route.tag, parse_util.arrayToKeyMap(stops, 'tag'), parse_util.mapDirectionsResult(directions) );
+				configurations[route.tag] = model.RouteConfiguration( route.tag, parse_util.arrayToKeyMap(stops, 'tag'), parse_util.listDirectionsResult(directions) );
 			}
 			configuration = configurations[route.tag];
 			deferred(null, {
