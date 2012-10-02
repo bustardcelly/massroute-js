@@ -81,6 +81,7 @@ describe('Parser-Util', function() {
 			var directions = JSON.parse(dirResult).route.direction;
 			var list = util.listDirectionsResult(directions);
 
+			expect(list instanceof Array).toBe(true);
 			expect(list.length).toEqual(2);
 		});
 
@@ -88,6 +89,7 @@ describe('Parser-Util', function() {
 			var directions = JSON.parse(dirResult).route.direction;
 			var list = util.listDirectionsResult(directions[0]);
 
+			expect(list instanceof Array).toBe(true);
 			expect(list.length).toEqual(1);
 		});
 	});
@@ -117,6 +119,7 @@ describe('Parser-Util', function() {
 			var predictionMap = util.mapPredictionResult(JSON.parse(predictionResult).predictions);
 			var predictionList = predictionMap.predictions;
 
+			expect(predictionList instanceof Array).toBe(true);
 			expect(predictionList.length).toEqual(5);
 		});
 	});
