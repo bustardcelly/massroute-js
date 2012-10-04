@@ -1,7 +1,7 @@
 var http 		= require('http'),
 	parser 		= require('libxml-to-js'),
 	parse_util 	= require('./parse-util'),
-	log4js 		= require('log4js-node'),
+	log4js 		= require('log4js'),
 	logger  	= log4js.getLogger('proxy'),
 	// Requirement in using MassDOT service that client can only make a request at most every 10 seconds.
 	delay 		= 10000,

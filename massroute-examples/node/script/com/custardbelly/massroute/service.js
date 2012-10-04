@@ -12,7 +12,7 @@ var model 		= require('./model'),
 	},
 	destOptions = { host: 'webservices.nextbus.com' },
 	predOptions = { host: 'webservices.nextbus.com' },
-	log4js 	= require('log4js-node'),
+	log4js 	= require('log4js'),
 	logger  = log4js.getLogger('service');
 
 function parseRoutes( deferred ) {

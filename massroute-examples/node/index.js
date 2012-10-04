@@ -5,7 +5,7 @@ var http 		  = require('http'),
 	app 		    = express(),
 	controller	= require('./script/com/custardbelly/massroute/controller'),
   docs        = require('./script/com/custardbelly/massroute/doc'),
-	log4js 		  = require('log4js-node'),
+	log4js 		  = require('log4js'),
 	logger 	 	  = log4js.getLogger('index'),
   port        = 3001;
 

@@ -1,0 +1,4 @@
+{
+	"name": "swagger",
+	"main": "./swagger.js"
+}
