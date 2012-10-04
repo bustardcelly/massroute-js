@@ -24,4 +24,8 @@
 		}
 	}
 
+	window.onunload = function() {
+		modalOverlay.style.display = 'none';
+	};
+
 }(window));
