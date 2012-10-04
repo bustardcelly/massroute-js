@@ -80,3 +80,25 @@ header h2 {
     top: -0.3em;
     left: 0.5em;
 }
+
+.modal-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.45);
+}
+
+.loading-modal {
+	position: absolute;
+	width: 180px;
+	padding: 20px;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7c9bc0), color-stop(2%, #416086), color-stop(100%, #293e56));
+  	-webkit-border-radius: 6px;
+  	-webkit-box-shadow: -1px 2px 12px rgba(0, 0, 0, 0.75);
+}
