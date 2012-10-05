@@ -1,5 +1,3 @@
 ./.DS_STORE
 *.sublime-project
 *.sublime-workspace
-*/node/node_modules
-*/node/package.*
