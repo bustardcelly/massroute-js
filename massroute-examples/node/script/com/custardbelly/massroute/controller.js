@@ -5,10 +5,10 @@ var promise = require('promise'),
 			return function( error ) {
 				response.format({
 				  html: function(){
-				    response.render('error', error );
+					response.render('error', error );
 				  },
 				  json: function(){
-				    response.send( JSON.stringify(error) );
+					response.send( JSON.stringify(error) );
 				  }
 				});
 			};
@@ -19,10 +19,10 @@ function renderRoutes( request, response ) {
 	return function( result ) {
 		response.format({
 		  html: function(){
-		    response.render('routes', {routes:result});
+			response.render('routes', {routes:result});
 		  },
 		  json: function(){
-		    response.send( JSON.stringify(result) );
+			response.send( JSON.stringify(result) );
 		  }
 		});
 	};
@@ -32,10 +32,10 @@ function renderDestinations( request, response ) {
 	return function( result ) {
 		response.format({
 		  html: function(){
-		  	response.render('destinations', {destinations:result});
+			response.render('destinations', {destinations:result});
 		  },
 		  json: function(){
-		    response.send( JSON.stringify(result) );
+			response.send( JSON.stringify(result) );
 		  }
 		});
 	};
@@ -45,10 +45,10 @@ function renderStops( request, response ) {
 	return function( result ) {
 		response.format({
 		  html: function(){
-		  	response.render('stops', {stops:result});
+			response.render('stops', {stops:result});
 		  },
 		  json: function(){
-		    response.send( JSON.stringify(result) );
+			response.send( JSON.stringify(result) );
 		  }
 		});
 	};
@@ -58,10 +58,10 @@ function renderPredictions( request, response ) {
 	return function( result ) {
 		response.format({
 		  html: function(){
-		  	response.render('predictions', {predictions:result});
+			response.render('predictions', {predictions:result});
 		  },
 		  json: function(){
-		    response.send( JSON.stringify(result) );
+			response.send( JSON.stringify(result) );
 		  }
 		});
 	};

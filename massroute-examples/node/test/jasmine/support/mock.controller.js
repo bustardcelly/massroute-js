@@ -1,5 +1,5 @@
 var fs = require('fs'),
-	parser 	= require('libxml-to-js'),
+	parser = require('libxml-to-js'),
 	proxyquire = require('proxyquire'),
 	baseProxyDir = process.cwd(),
 	baseProxyUrl = baseProxyDir + '/script/com/custardbelly/massroute',

@@ -46,7 +46,7 @@ describe('Parser-Util', function() {
 				firstItem = routes[0];
 
 			expect(firstItem['@']).toBeUndefined();
-			expect(firstItem['tag']).not.toBeUndefined();
+			expect(firstItem.tag).not.toBeUndefined();
 		});
 
 		it('should create a map of routes based on the \'tag\' value', function() {
