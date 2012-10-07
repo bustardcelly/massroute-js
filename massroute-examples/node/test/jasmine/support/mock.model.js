@@ -1,8 +1,8 @@
 var path 					= require('path'),
 	jasmine 				= global.jasmine,
-	baseProxyUrl 			= '../script/com/custardbelly/massroute',
-	supportUrl 				= process.cwd() + '/jasmine/support',
-	model 					= require(path.join(process.cwd(),baseProxyUrl,'/model.js')),
+	baseProxyUrl 			= process.cwd() + '/script/com/custardbelly/massroute',
+	supportUrl 				= process.cwd() + '/test/jasmine/support',
+	model 					= require(path.join(baseProxyUrl,'/model.js')),
 	stubbedConfiguration 	= model.RouteConfiguration('1', {
 		"34": {
 			tag: "34",

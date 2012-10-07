@@ -25,7 +25,7 @@ function renderRoutes( request, response ) {
 		    response.send( JSON.stringify(result) );
 		  }
 		});
-	}
+	};
 }
 
 function renderDestinations( request, response ) {
@@ -38,7 +38,7 @@ function renderDestinations( request, response ) {
 		    response.send( JSON.stringify(result) );
 		  }
 		});
-	}
+	};
 }
 
 function renderStops( request, response ) {
@@ -51,7 +51,7 @@ function renderStops( request, response ) {
 		    response.send( JSON.stringify(result) );
 		  }
 		});
-	}
+	};
 }
 
 function renderPredictions( request, response ) {
@@ -64,7 +64,7 @@ function renderPredictions( request, response ) {
 		    response.send( JSON.stringify(result) );
 		  }
 		});
-	}
+	};
 }
 
 exports.routes = function( req, res ) {

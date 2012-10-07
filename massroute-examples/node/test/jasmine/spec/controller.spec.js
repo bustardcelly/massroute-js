@@ -1,10 +1,10 @@
 describe('Controller', function() {
 
-	var supportUrl = process.cwd() + '/jasmine/support',
+	var supportUrl = process.cwd() + '/test/jasmine/support',
 		helper = require(supportUrl + '/mock.controller.js'),
 		response = require('express').response,
 		result, dirResult, predictionResult,
-		baseUrl = '../../../script/com/custardbelly/massroute';
+		baseUrl = process.cwd() + '/script/com/custardbelly/massroute';
 		
 	describe('When routes requested', function() {
 

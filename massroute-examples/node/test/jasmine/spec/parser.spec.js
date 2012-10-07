@@ -1,10 +1,10 @@
 describe('Parser-Util', function() {
 
-	var supportUrl = process.cwd() + '/jasmine/support',
+	var supportUrl = process.cwd() + '/test/jasmine/support',
 		helper = require(supportUrl + '/mock.controller.js'),
 		response = require('express').response,
 		result, dirResult, predictionResult,
-		baseUrl = '../../../script/com/custardbelly/massroute',
+		baseUrl = process.cwd() + '/script/com/custardbelly/massroute',
 		util = require(baseUrl+'/parse-util');
 
 	describe('When routes response XML is parsed to application data', function() {

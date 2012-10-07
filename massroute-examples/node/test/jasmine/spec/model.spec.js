@@ -1,7 +1,7 @@
 describe('Model: RouteConfiguration', function() {
 	
 	var configuration,
-		supportUrl = process.cwd() + '/jasmine/support',
+		supportUrl = process.cwd() + '/test/jasmine/support',
 		mockConfiguration = require(supportUrl + '/mock.model.js');
 
 	beforeEach( function() {

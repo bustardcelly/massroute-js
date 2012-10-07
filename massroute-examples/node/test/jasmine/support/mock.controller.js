@@ -1,9 +1,9 @@
 var fs = require('fs'),
 	parser 	= require('libxml-to-js'),
 	proxyquire = require('proxyquire'),
-	baseProxyDir = '../',
-	baseProxyUrl = '../script/com/custardbelly/massroute',
-	supportUrl = process.cwd() + '/jasmine/support';
+	baseProxyDir = process.cwd(),
+	baseProxyUrl = baseProxyDir + '/script/com/custardbelly/massroute',
+	supportUrl = baseProxyDir + '/test/jasmine/support';
 
 exports.supportUrl = supportUrl;
 exports.controller = proxyquire.resolve( baseProxyUrl + '/controller.js', baseProxyDir, {'./service': {
