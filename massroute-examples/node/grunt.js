@@ -22,13 +22,26 @@ module.exports = function(grunt) {
         useDotNotation: true,
         consolidate: true
       }
+    },
+    forever: {
+      main: 'index.js'
+    },
+    // not working properly...
+    watch: {
+      scripts: {
+        files: '<config:jasmine_node.spec' + '/*.spec.js',
+        tasks: 'jasmine_node'
+      }
     }
   });
 
   // Load tasks from "grunt-sample" grunt plugin installed via Npm.
   grunt.loadNpmTasks('grunt-jasmine-node');
+  grunt.loadNpmTasks('grunt-forever');
 
   // Default task.
-  grunt.registerTask('default', 'lint jasmine_node');
+  grunt.registerTask('default', 'lint jasmine_node forever:restart');
+  grunt.registerTask('launch', 'forever:start');
+  grunt.registerTask('unlaunch', 'forever:stop');
 
 };

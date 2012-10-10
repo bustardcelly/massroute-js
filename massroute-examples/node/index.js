@@ -1,13 +1,13 @@
-var http 		  = require('http'),
-	url 		    = require('url'),
-	express 	  = require('express'),
-	partials 	  = require('express-partials'),
-	app 		    = express(),
-	controller	= require('./script/com/custardbelly/massroute/controller'),
-  docs        = require('./script/com/custardbelly/massroute/doc'),
-	log4js 		  = require('log4js'),
-	logger 	 	  = log4js.getLogger('index'),
-  port        = 3001;
+var http       = require('http'),
+	url        = require('url'),
+	express    = require('express'),
+	partials   = require('express-partials'),
+	app        = express(),
+	controller = require('./script/com/custardbelly/massroute/controller'),
+    docs       = require('./script/com/custardbelly/massroute/doc'),
+	log4js     = require('log4js'),
+	logger     = log4js.getLogger('index'),
+    port       = 3001;
 
 // Middleware to bring Express 3.0 partials back.
 app.use( partials() );

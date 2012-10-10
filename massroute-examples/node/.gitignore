@@ -2,3 +2,4 @@ node_modules
 *.log
 massroute.monitor.js
 **/notes.txt
+build/reports/*

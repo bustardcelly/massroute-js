@@ -14,19 +14,19 @@
 	    "node >=0.8.6"
 	  ],
 	"dependencies" : { 
-		"async": "0.1.22",
-		"ejs": "0.8.2",
-		"express": "3.0",
-		"express-partials": "0.0.5",
-		"libxml-to-js": "0.3.10",
-		"lodash": "0.6.1",
-		"log4js": "0.5.2",
-		"proxyquire": "0.3.2"
+		"async": ">=0.1.22",
+		"ejs": ">=0.8.2",
+		"express": ">=3.0",
+		"express-partials": ">=0.0.5",
+		"libxml-to-js": ">=0.3.10",
+		"lodash": ">=0.6.1",
+		"log4js": ">=0.5.2",
+		"proxyquire": ">=0.3.2"
 	},
 	"devDependencies" : {
 	    "grunt" : "~0.3.16",
 	    "jasmine-node": "*",
-	    "forever": "0.10.1"
+	    "forever": ">=0.10.0"
 	},
 	"private": "true",
 	"readme": "# massroute-node"
