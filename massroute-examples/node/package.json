@@ -26,6 +26,8 @@
 	"devDependencies" : {
 	    "grunt" : "~0.3.16",
 	    "jasmine-node": "*",
+	    "grunt-jasmine-node": ">=0.0.2",
+	    "grunt-forever": ">=0.2.0",
 	    "forever": ">=0.10.0"
 	},
 	"private": "true",
