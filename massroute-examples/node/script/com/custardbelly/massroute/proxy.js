@@ -14,6 +14,7 @@ var http        = require('http'),
         deferred: undefined,
         execute: function() {
             var self = this;
+            logger.info(self.options.path);
             http.get( self.options, function( http_res ) {
                 var data = '';
                 http_res.on('data', function(chunk) {

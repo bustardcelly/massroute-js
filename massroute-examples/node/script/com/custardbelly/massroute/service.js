@@ -52,6 +52,7 @@ function parseDestinations( deferred ) {
     };
 }
 
+/* [2013-03-16] API change
 function parsePredictions( deferred ) {
     return function( error, result ) {
         if( error ) {
@@ -60,6 +61,20 @@ function parsePredictions( deferred ) {
         else {
             deferred( null, parse_util.mapPredictionResult(result.predictions) );
         }
+    };
+}
+*/
+function parsePredictions(dirTag) {
+    return function( deferred ) {
+        var dirID = dirTag;
+        return function( error, result ) {
+            if( error ) {
+                deferred( {error:error} );
+            }
+            else {
+                deferred( null, parse_util.mapPredictionResult(result.predictions, dirID) );
+            }
+        };
     };
 }
 
@@ -133,6 +148,6 @@ exports.getPredictions = function( routeID, destinationID, stopID ) {
                     " on destination " + destinationID + "..." );
     return this.getStops( routeID, destinationID ).then( function() {
         predOptions.path = predPath.replace('{0}', routeID).replace('{1}', stopID);
-        return defer( proxy.requestData, predOptions, parsePredictions );
+        return defer( proxy.requestData, predOptions, parsePredictions(destinationID) );
     });
 };

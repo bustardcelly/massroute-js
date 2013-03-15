@@ -35,12 +35,46 @@ exports.mapResult = function( list ) {
 /**
  * Bases prediction item and appends the list of predictions to the object.
  * @param  {Object} item Parsed XML object for prediction
+ * @param {String} dirTag Associated direction id of route/direction.
  * @return {Object}      Prediction object with properly parsed list of predictions.
  */
-exports.mapPredictionResult = function( item ) {
-    var prediction, predictions = [];
-    prediction = item["@"];
+exports.mapPredictionResult = function( item, dirTag ) {
+    var prediction,
+        directions, 
+        i, length, direction,
+        j, predLength, pred, predictions = [];
+    // [2013-03-16] change to return data 
+    /* 
     prediction.predictions = (item.direction) ? this.mapResult(item.direction.prediction) : [];
+    */
+    // select all where direction.predictions.@['dirTag'] == dirId;
+    prediction = item["@"];
+    directions = item.direction;
+    length = (directions) ? directions.length : 0;
+    if(length === 0) {
+        // try old way:
+        try {
+            prediction.predictions = (item.direction) ? this.mapResult(item.direction.prediction) : [];
+        }
+        catch(e) {
+            logger.error('Error in requesting prediction: ' + e.message);
+            logger.info('Returned prediction data: ' + JSON.stringify(item, null, 2));
+        }
+    }
+    else {
+        logger.info('parsing with new API. dirTag: ' + dirTag);
+        for(i = 0; i < length; i++) {
+            direction = directions[i];
+            predLength = direction.prediction.length;
+            for(j = 0; j < predLength; j++) {
+                pred = direction.prediction[j];
+                if(pred["@"].dirTag === dirTag) {
+                    predictions.push(pred);
+                }
+            }
+        }
+        prediction.predictions = this.mapResult(predictions);
+    }
     return prediction;
 };
 

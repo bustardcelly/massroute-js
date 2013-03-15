@@ -1,11 +1,28 @@
+<-- 2013 
+<?xml version="1.0" encoding="utf-8" ?> 
+<body copyright="All data copyright MBTA 2013.">
+<predictions agencyTitle="MBTA" routeTitle="39" routeTag="39" stopTitle="Centre St @ Seaverns Ave" stopTag="1129">
+  <direction title="Back Bay Station via Copley Square">
+    <prediction epochTime="1363341640325" seconds="380" minutes="6" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1041" block="S39_25" tripTag="19106458" />
+    <prediction epochTime="1363342120325" seconds="860" minutes="14" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1034" block="S39_28" tripTag="19106465" />
+    <prediction epochTime="1363342540325" seconds="1280" minutes="21" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1024" block="S39_30" tripTag="19106462" />
+    <prediction epochTime="1363342960325" seconds="1700" minutes="28" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1029" block="S39_32" tripTag="19106650" />
+    <prediction epochTime="1363343380325" seconds="2120" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="39_1_var1" vehicle="1021" block="S39_34" tripTag="19106691" />
+  </direction>
+  <direction title="Longwood Ave. via Huntington Ave.">
+    <prediction epochTime="1363345347753" seconds="4088" minutes="68" isDeparture="false" affectedByLayover="true" dirTag="39_1_var0" vehicle="2004" block="B42_216" tripTag="19062914" />
+  </direction>
+</predictions>
+</body>
+-->
 <body copyright="All data copyright MBTA 2012.">
-	<predictions agencyTitle="MBTA" routeTitle="39" routeTag="39" stopTitle="S Huntington Ave @ Huntington Ave" stopTag="21365">
-		<direction title="Forest Hills Station via Huntington Ave.">
-			<prediction epochTime="1347356671636" seconds="149" minutes="2" isDeparture="false" dirTag="39_0_var0" vehicle="1032" block="S39_25" tripTag="18624407"/>
-			<prediction epochTime="1347357329868" seconds="807" minutes="13" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1023" block="S39_28" tripTag="18624409"/>
-			<prediction epochTime="1347357717868" seconds="1195" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1021" block="S39_30" tripTag="18624413"/>
-			<prediction epochTime="1347358197868" seconds="1675" minutes="27" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1035" block="S39_34" tripTag="18624412"/>
-			<prediction epochTime="1347358677868" seconds="2155" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1022" block="S39_39" tripTag="18624414"/>
-		</direction>
-	</predictions>
+  <predictions agencyTitle="MBTA" routeTitle="39" routeTag="39" stopTitle="S Huntington Ave @ Huntington Ave" stopTag="21365">
+    <direction title="Forest Hills Station via Huntington Ave.">
+      <prediction epochTime="1347356671636" seconds="149" minutes="2" isDeparture="false" dirTag="39_0_var0" vehicle="1032" block="S39_25" tripTag="18624407"/>
+      <prediction epochTime="1347357329868" seconds="807" minutes="13" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1023" block="S39_28" tripTag="18624409"/>
+      <prediction epochTime="1347357717868" seconds="1195" minutes="19" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1021" block="S39_30" tripTag="18624413"/>
+      <prediction epochTime="1347358197868" seconds="1675" minutes="27" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1035" block="S39_34" tripTag="18624412"/>
+      <prediction epochTime="1347358677868" seconds="2155" minutes="35" isDeparture="false" affectedByLayover="true" dirTag="39_0_var0" vehicle="1022" block="S39_39" tripTag="18624414"/>
+    </direction>
+  </predictions>
 </body>
