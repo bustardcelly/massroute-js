@@ -50,7 +50,8 @@ exports.mapPredictionResult = function( item, dirTag ) {
     // select all where direction.predictions.@['dirTag'] == dirId;
     prediction = item["@"];
     directions = item.direction;
-    length = (directions) ? directions.length : 0;
+    length = (Array.isArray(directions)) ? directions.length : 0;
+    // console.log('dir length: ' + JSON.stringify(directions, null, 2));
     if(length === 0) {
         // try old way:
         try {
